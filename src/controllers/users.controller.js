@@ -1,4 +1,4 @@
-import { UsersService } from "../services/users.service.js";
+import { UsersService } from '../services/users.service.js';
 
 export class UsersController {
   usersService = new UsersService();
@@ -10,12 +10,12 @@ export class UsersController {
         email,
         nickname,
         password,
-        confirmpassword
+        confirmpassword,
       );
 
       return res
         .status(200)
-        .json({ message: "회원가입이 완료되었습니다.", data: users });
+        .json({ message: '회원가입이 완료되었습니다.', data: users });
     } catch (err) {
       next(err);
     }
@@ -38,7 +38,7 @@ export class UsersController {
       const { email, nickname } = res.locals.user;
 
       return res.status(200).json({
-        message: "토큰이 정상적입니다.",
+        message: '토큰이 정상적입니다.',
         data: { email, nickname },
       });
     } catch (err) {

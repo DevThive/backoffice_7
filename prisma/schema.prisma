@@ -19,10 +19,34 @@ model Users {
     phoneNumber String @map("phoneNumber")
     type String @map("type")
     point Int @map("point")
-
+   
+   reviews Reviews[]
 
     createdAt DateTime @default(now()) @map("createdAt")
     updatedAt DateTime @updatedAt @map("updatedAt")
 
     @@map("Users")
 }
+
+model Reviews {
+  reviewId Int @id @default(autoincrement()) @map("reviewId")
+  rating Int @map("rating")
+  UserId Int @map("userId")
+  MenuId Int @map("menuId")
+  AdminId Int @map("adminId")
+  content String @map("content")
+
+  createdAt DateTime @default(now()) @map("createdAt")
+  updatedAt DateTime @updatedAt @map("updatedAt")
+
+  User Users @relation(fields: [UserId], references: [userId], onDelete: Cascade)
+  Admin Admins @relation(fields: [AdminId], references: [adminId])
+  Menu Menus @relation(fields: [MenuId], references: [menuId])
+
+
+@@map("Reviews")
+}
+
+//Model admins에 추가 reviews Reviews[]
+
+//Model menu에 추가 reviews Reviews[]
