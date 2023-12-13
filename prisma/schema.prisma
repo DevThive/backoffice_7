@@ -63,3 +63,16 @@ model BusinessHours {
 	@@id([dinerId, dayOfWeek])
 	@@map("BusinessHours")
 }
+
+model Menus {
+    menuId Int @id @default(autoincrement()) @map("menuId")
+    title String @map("title")
+    description String @map("description")
+    price String @map("nickname")
+
+
+    createdAt DateTime @default(now()) @map("createdAt")
+    updatedAt DateTime @updatedAt @map("updatedAt")
+
+    @@map("Menus")
+}
