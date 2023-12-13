@@ -11,8 +11,18 @@ export class DinersService {
 	}
 	
 	// 전체 식당 조회
-	readDiners = async () => await this.dinersRepository.readDiners()
+	getDiners = async () => await this.dinersRepository.getDiners()
 	
 	// 특정 식당 조회
-	readDiner = async(dinerId) => await this.dinersRepository.readDiner(dinerId)
+	getDiner = async(dinerId) => await this.dinersRepository.getDiner(dinerId)
+	
+	// 식당 정보 수정
+	updateDiner = async (dinerId,name,type,address,phoneNumber,introduction,homepage) => {
+		try{
+			await this.dinersRepository.updateDiner(dinerId,name,type,address,phoneNumber,introduction,homepage)
+		}catch(e){throw e}
+	}
+	
+	// 식당 삭제
+	deleteDiner = async(dinerId) => await this.dinersRepository.deleteDiner(dinerId)
 }

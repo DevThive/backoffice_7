@@ -17,17 +17,37 @@ export class DinersController {
 	}
 	
 	// 전체 식당 조회
-	readDiners = async (req,res,next) => {
-		const diners = await this.dinersService.readDiners()
+	getDiners = async (req,res) => {
+		const diners = await this.dinersService.getDiners()
 		res.json({diners})
 	}
 	
-	// 특정 식당 조회
-	readDiner = async (req,res,next) => {
+	// 특정 식당 찾기
+	findDiner = async (req,res,next) => {
 		const dinerId = +req.params.dinerId
 		if(isNaN(dinerId)) return res.status(404).json({message: "해당 매장이 존재하지 않습니다."})
-		const diner = await this.dinersService.readDiner(dinerId)
+		const diner = await this.dinersService.getDiner(dinerId)
 		if(!diner) return res.status(404).json({message: "해당 매장이 존재하지 않습니다."})
-		res.json({diner})
-	}	
+		res.locals.diner = diner
+		next()
+	}
+	
+	// 특정 식당 조회
+	getDiner = async (req,res) => res.json({diner:res.locals.diner})
+	
+	// 식당 정보 수정
+	updateDiner = async (req,res,next) => {
+		try{
+			const {name, type, address, phoneNumber, introduction, homepage} = req.body
+			if(!name && !type && !address && !phoneNumber && !introduction && !homepage) res.status(400).json({message: "수정할 정보를 입력해주세요."})
+			const updatedDiner = await this.dinersService.updateDiner(res.locals.diner.dinerId,name,type,address,phoneNumber,introduction,homepage)
+			res.status(201).json({message:"매장 정보를 수정하였습니다.",updatedDiner})
+		}catch(e){next(e)}	
+	}
+
+	// 식당 삭제
+	deleteDiner = async (req,res,next) =>{ 
+		await this.dinersService.deleteDiner(res.locals.diner.dinerId)
+		res.status(204).json()
+	}
 }
