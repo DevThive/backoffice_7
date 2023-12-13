@@ -64,8 +64,9 @@ export class DinersRepository {
           data: { name, type, address, phoneNumber, introduction, homepage },
         }),
         ...[0, 1, 2, 3, 4, 5, 6]
-          .filter((i) => businessHour[i])
+          .filter((i) => businessHour[i] || businessHour[i]===null)
           .map((i) => {
+			  if(!businessHour[i]) return prisma.$queryRaw`delete from businessHours where dinerId=${dinerId} and dayOfWeek=${i}`
             const [openTime, closeTime] = businessHour[i];
             console.log(i, openTime, closeTime);
             return prisma.businessHours.upsert({
