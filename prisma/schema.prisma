@@ -26,3 +26,17 @@ model Users {
 
     @@map("Users")
 }
+
+model Diners {
+	dinerId Int @id @default(autoincrement())
+	name String
+	type String?
+	address String
+	phoneNumber String
+	introduction String @db.Text
+	// businessHour Int[]
+	homepage String?
+	createdAt DateTime @default(now()) @map("createdAt")
+    updatedAt DateTime @updatedAt @map("updatedAt")
+    @@map("Diners")
+}
