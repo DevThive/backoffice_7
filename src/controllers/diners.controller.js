@@ -108,7 +108,7 @@ export class DinersController {
         !phoneNumber &&
         !introduction &&
         !homepage &&
-		!businessHour
+        !businessHour
       )
         res.status(400).json({ message: '수정할 정보를 입력해주세요.' });
       if (!this.isValidBusinessHour(businessHour))
