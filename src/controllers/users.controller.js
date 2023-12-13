@@ -72,19 +72,13 @@ export class UsersController {
     try {
       const { email, password } = req.body;
 
-      const adminLogin = await this.usersService.adminLogin(
-        email,
-        password,
-        type,
-      );
+      const adminLogin = await this.usersService.adminLogin(email, password);
 
       res.header('Authorization', `Bearer ${adminLogin}`);
-      return res
-        .status(200)
-        .json({
-          message: '사장님 로그인입니다.',
-          token: `Bearer ${adminLogin}`,
-        });
+      return res.status(200).json({
+        message: '사장님 로그인입니다.',
+        token: `Bearer ${adminLogin}`,
+      });
     } catch (err) {
       next(err);
     }
