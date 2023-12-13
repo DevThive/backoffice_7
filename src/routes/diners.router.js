@@ -6,7 +6,7 @@ const router = express.Router();
 const dinersController = new DinersController();
 
 // 식당 등록
-router.post('/', dinersController.createDiner);
+router.post('/', authMiddleware, dinersController.createDiner);
 // 전체 식당 조회
 router.get('/', dinersController.getDiners);
 // 특정 식당 조회
@@ -14,12 +14,14 @@ router.get('/:dinerId', dinersController.findDiner, dinersController.getDiner);
 // 식당 정보 수정
 router.patch(
   '/:dinerId',
+  authMiddleware,
   dinersController.findDiner,
   dinersController.updateDiner,
 );
 // 식당 삭제
 router.delete(
   '/:dinerId',
+  authMiddleware,
   dinersController.findDiner,
   dinersController.deleteDiner,
 );

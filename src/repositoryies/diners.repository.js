@@ -3,6 +3,7 @@ import { prisma } from '../utils/prisma/index.js';
 export class DinersRepository {
   // 식당 등록
   createDiner = async (
+    adminId,
     name,
     type,
     address,
@@ -14,7 +15,15 @@ export class DinersRepository {
     try {
       await prisma.$transaction(async (tx) => {
         const createdDiner = await tx.diners.create({
-          data: { name, type, address, phoneNumber, introduction, homepage },
+          data: {
+            adminId,
+            name,
+            type,
+            address,
+            phoneNumber,
+            introduction,
+            homepage,
+          },
         });
         const dinerId = createdDiner.dinerId;
         await tx.businessHours.createMany({
@@ -40,9 +49,9 @@ export class DinersRepository {
   getDiners = async () => await prisma.diners.findMany();
 
   // 특정 식당 조회
-  getDiner = async (dinerId) =>
+  getDiner = async (info) =>
     await prisma.diners.findUnique({
-      where: { dinerId },
+      where: info,
       include: { BusinessHours: true },
     });
 

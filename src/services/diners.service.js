@@ -5,6 +5,7 @@ export class DinersService {
 
   // 식당 등록
   createDiner = async (
+    adminId,
     name,
     type,
     address,
@@ -15,6 +16,7 @@ export class DinersService {
   ) => {
     try {
       await this.dinersRepository.createDiner(
+        adminId,
         name,
         type,
         address,
@@ -32,7 +34,7 @@ export class DinersService {
   getDiners = async () => await this.dinersRepository.getDiners();
 
   // 특정 식당 조회
-  getDiner = async (dinerId) => await this.dinersRepository.getDiner(dinerId);
+  getDiner = async (info) => await this.dinersRepository.getDiner(info);
 
   // 식당 정보 수정
   updateDiner = async (
