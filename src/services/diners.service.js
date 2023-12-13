@@ -4,9 +4,9 @@ export class DinersService {
 	dinersRepository = new DinersRepository()
 	
 	// 식당 등록
-	createDiner = async (name,type,address,phoneNumber,introduction,homepage) => {
+	createDiner = async (name,type,address,phoneNumber,introduction,homepage,businessHour) => {
 		try{
-			await this.dinersRepository.createDiner(name,type,address,phoneNumber,introduction,homepage)
+			await this.dinersRepository.createDiner(name,type,address,phoneNumber,introduction,homepage,businessHour)
 		}catch(e){throw e}
 	}
 	
@@ -17,9 +17,9 @@ export class DinersService {
 	getDiner = async(dinerId) => await this.dinersRepository.getDiner(dinerId)
 	
 	// 식당 정보 수정
-	updateDiner = async (dinerId,name,type,address,phoneNumber,introduction,homepage) => {
+	updateDiner = async (dinerId,name,type,address,phoneNumber,introduction,homepage,businessHour) => {
 		try{
-			await this.dinersRepository.updateDiner(dinerId,name,type,address,phoneNumber,introduction,homepage)
+			await this.dinersRepository.updateDiner(dinerId,name,type,address,phoneNumber,introduction,homepage,businessHour)
 		}catch(e){throw e}
 	}
 	

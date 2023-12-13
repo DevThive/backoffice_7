@@ -6,12 +6,13 @@ export class DinersController {
 	// 식당 등록
 	createDiner = async (req,res,next) => {
 		try{
-			const {name, type, address, phoneNumber, introduction, homepage} = req.body
+			const {name, type, address, phoneNumber, introduction, homepage, businessHour} = req.body
 			if(!name) return res.status(400).json({message: "매장 이름을 입력해주세요."})
 			if(!address) return res.status(400).json({message: "매장 주소를 입력해주세요."})
 			if(!phoneNumber) return res.status(400).json({message: "매장 전화번호를 입력해주세요."})
 			if(!introduction) return res.status(400).json({message: "매장 소개를 입력해주세요."})
-			const newDiner = await this.dinersService.createDiner(name,type,address,phoneNumber,introduction,homepage)
+			// businessHour 유효성 체크
+			const newDiner = await this.dinersService.createDiner(name,type,address,phoneNumber,introduction,homepage,businessHour)
 			res.status(201).json({message:"매장을 등록하였습니다."})
 		}catch(e){next(e)}
 	}
@@ -38,9 +39,10 @@ export class DinersController {
 	// 식당 정보 수정
 	updateDiner = async (req,res,next) => {
 		try{
-			const {name, type, address, phoneNumber, introduction, homepage} = req.body
-			if(!name && !type && !address && !phoneNumber && !introduction && !homepage) res.status(400).json({message: "수정할 정보를 입력해주세요."})
-			const updatedDiner = await this.dinersService.updateDiner(res.locals.diner.dinerId,name,type,address,phoneNumber,introduction,homepage)
+			const {name, type, address, phoneNumber, introduction, homepage, businessHour} = req.body
+			// businessHour 유효성 체크
+			if(!name && !type && !address && !phoneNumber && !introduction && !homepage && !businessHour) res.status(400).json({message: "수정할 정보를 입력해주세요."})
+			const updatedDiner = await this.dinersService.updateDiner(res.locals.diner.dinerId,name,type,address,phoneNumber,introduction,homepage,businessHour)
 			res.status(201).json({message:"매장 정보를 수정하였습니다.",updatedDiner})
 		}catch(e){next(e)}	
 	}

@@ -2,9 +2,16 @@ import {prisma} from '../utils/prisma/index.js'
 
 export class DinersRepository {
 	// 식당 등록
-	createDiner = async (name,type,address,phoneNumber,introduction,homepage) => {
+	createDiner = async (name,type,address,phoneNumber,introduction,homepage,businessHour) => {
 		try{
-			await prisma.diners.create({data:{name,type,address,phoneNumber,introduction,homepage}})
+			await prisma.$transaction(async tx => {
+				const createdDiner = await tx.diners.create({data:{name,type,address,phoneNumber,introduction,homepage}})
+				const dinerId = createdDiner.dinerId
+				await tx.businessHours.createMany({
+					data: [0,1,2,3,4,5,6].filter(i => businessHour[i]).map(i => {return {dinerId,dayOfWeek:i,openTime:businessHour[i][0],closeTime:businessHour[i][1]}})
+				})
+				return createdDiner
+			})
 		}catch(e){throw e}
 	}
 	
@@ -12,12 +19,22 @@ export class DinersRepository {
 	getDiners = async () => await prisma.diners.findMany()
 	
 	// 특정 식당 조회
-	getDiner = async (dinerId) => await prisma.diners.findUnique({where:{dinerId}})
+	getDiner = async (dinerId) => await prisma.diners.findUnique({where:{dinerId},include:{BusinessHours:true}})
 	
 	// 식당 정보 수정
-	updateDiner = async (dinerId,name,type,address,phoneNumber,introduction,homepage) => {
+	updateDiner = async (dinerId,name,type,address,phoneNumber,introduction,homepage,businessHour) => {
 		try{
-			await prisma.diners.update({where:{dinerId},data:{name,type,address,phoneNumber,introduction,homepage}})
+			await prisma.$transaction([
+				prisma.diners.update({where:{dinerId},data:{name,type,address,phoneNumber,introduction,homepage}}),
+				...[0,1,2,3,4,5,6].filter(i => businessHour[i]).map(i => {
+					const [openTime,closeTime] = businessHour[i]
+					console.log(i,openTime,closeTime)
+					return prisma.businessHours.upsert({
+					where:{dinerId_dayOfWeek:{dinerId,dayOfWeek:i}},
+					update:{openTime,closeTime},
+					create:{dinerId,dayOfWeek:i,openTime,closeTime}
+				})})
+			])
 		}catch(e){throw e}
 	}
 	
