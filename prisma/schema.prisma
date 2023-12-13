@@ -44,6 +44,6 @@ model BusinessHours {
 	openTime Int
 	closeTime Int
 	Diner Diners @relation(fields:[dinerId], references:[dinerId], onDelete:Cascade)
-	aabbb @@id([dinerId, dayOfWeek])
+	@@id([dinerId, dayOfWeek])
 	@@map("BusinessHours")
 }
