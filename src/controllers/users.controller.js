@@ -1,33 +1,90 @@
-import { UsersService } from "../services/users.service.js";
+import { UsersService } from '../services/users.service.js';
 
 export class UsersController {
   usersService = new UsersService();
-  Signup = async (req, res, next) => {
+  userSignup = async (req, res, next) => {
     try {
-      const { email, nickname, password, confirmpassword } = req.body;
+      const {
+        email,
+        nickname,
+        password,
+        confirmpassword,
+        address,
+        phoneNumber,
+      } = req.body;
 
       const users = await this.usersService.signupUser(
         email,
         nickname,
         password,
-        confirmpassword
+        confirmpassword,
+        address,
+        phoneNumber,
       );
 
       return res
         .status(200)
-        .json({ message: "회원가입이 완료되었습니다.", data: users });
+        .json({ message: '회원가입이 완료되었습니다.', data: users });
     } catch (err) {
       next(err);
     }
   };
 
-  Signin = async (req, res, next) => {
+  adminSignup = async (req, res, next) => {
+    try {
+      const { email, nickname, password, confirmpassword, address, marketNum } =
+        req.body;
+
+      const admin = await this.usersService.signupAdmin(
+        email,
+        nickname,
+        password,
+        confirmpassword,
+        address,
+        marketNum,
+      );
+
+      return res
+        .status(200)
+        .json({ message: '(사장님) 회원가입이 되었습니다.', data: admin });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  userSignin = async (req, res, next) => {
     try {
       const { email, password } = req.body;
 
-      const authLogin = await this.usersService.authLogin(email, password);
+      const userLogin = await this.usersService.userLogin(email, password);
 
-      return res.status(200).json({ token: `Bearer ${authLogin}` });
+      res.header('Authorization', `Bearer ${userLogin}`);
+      return res.status(200).json({
+        message: '사용자 로그인입니다.',
+        token: `Bearer ${userLogin}`,
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  adminSignin = async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+
+      const adminLogin = await this.usersService.adminLogin(
+        email,
+        password,
+        type,
+      );
+
+      res.header('Authorization', `Bearer ${adminLogin}`);
+      return res
+        .status(200)
+        .json({
+          message: '사장님 로그인입니다.',
+          token: `Bearer ${adminLogin}`,
+        });
     } catch (err) {
       next(err);
     }
@@ -38,7 +95,7 @@ export class UsersController {
       const { email, nickname } = res.locals.user;
 
       return res.status(200).json({
-        message: "토큰이 정상적입니다.",
+        message: '토큰이 정상적입니다.',
         data: { email, nickname },
       });
     } catch (err) {
