@@ -33,6 +33,9 @@ export class DinersService {
   // 전체 식당 조회
   getDiners = async () => await this.dinersRepository.getDiners();
 
+  // 식당 키워드 검색
+  searchDiners = async (key) => await this.dinersRepository.searchDiners(key);
+
   // 특정 식당 조회
   getDiner = async (info) => await this.dinersRepository.getDiner(info);
 

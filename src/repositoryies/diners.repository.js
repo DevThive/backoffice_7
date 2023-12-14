@@ -48,6 +48,18 @@ export class DinersRepository {
   // 전체 식당 조회
   getDiners = async () => await prisma.diners.findMany();
 
+  // 식당 키워드 검색
+  searchDiners = async (key) =>
+    await prisma.diners.findMany({
+      where: {
+        OR: [
+          { name: { startsWith: `%${key}` } },
+          { type: { startsWith: `%${key}` } },
+          { introduction: { startsWith: `%${key}` } },
+        ],
+      },
+    });
+
   // 특정 식당 조회
   getDiner = async (info) =>
     await prisma.diners.findUnique({
@@ -76,7 +88,7 @@ export class DinersRepository {
           .filter((i) => businessHour[i] || businessHour[i] === null)
           .map((i) => {
             if (!businessHour[i])
-              return prisma.$queryRaw`delete from businessHours where dinerId=${dinerId} and dayOfWeek=${i}`;
+              return prisma.$queryRaw`delete from businessHours where dinerId=${dinerId} and dayOfWeek=${i};`;
             const [openTime, closeTime] = businessHour[i];
             console.log(i, openTime, closeTime);
             return prisma.businessHours.upsert({
