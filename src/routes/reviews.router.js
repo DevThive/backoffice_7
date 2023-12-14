@@ -11,10 +11,10 @@ router.get('', reviewsController.readMany);
 // 리뷰 상세 조회
 router.get('/:reviewId', reviewsController.readOne);
 // 리뷰 등록
-router.post('', reviewsController.createOne);
+router.post('', authMiddleware, reviewsController.createOne);
 // 리뷰 수정
-router.put('/:reviewId', reviewsController.updateOne);
+router.put('/:reviewId', authMiddleware, reviewsController.updateOne);
 // 리뷰 삭제
-router.delete('/:reviewId', reviewsController.deleteOne);
+router.delete('/:reviewId', authMiddleware, reviewsController.deleteOne);
 
 export default router;
