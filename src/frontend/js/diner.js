@@ -169,11 +169,13 @@ async function showDiner(dinerId) {
   }
 }
 
-async function getDiners() {
+async function getDiners(diners = null) {
   try {
-    const res = await axios.get(server + `/api/diners`);
-    const diners = res.data.diners;
-    console.log(diners);
+    if (!diners) {
+      const res = await axios.get(server + `/api/diners`);
+      diners = res.data.diners;
+    }
+    $('#diners').empty();
     diners.forEach((diner) => {
       const dinerList = $(`<li>
 		  <div class="diner-info">
@@ -204,5 +206,21 @@ async function getDiners() {
         '오류가 발생했습니다.',
     );
     location.href = 'index.html';
+  }
+}
+
+async function searchDiners() {
+  try {
+    const keyword = $('#keyword').val();
+    const res = await axios.get(server + `/api/diners/search?key=${keyword}`);
+    const diners = res.data.diners;
+    getDiners(diners);
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
   }
 }
