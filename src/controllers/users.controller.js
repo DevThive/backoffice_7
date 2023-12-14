@@ -1,7 +1,21 @@
 import { UsersService } from '../services/users.service.js';
+import { sendEmail } from '../server/email.js';
 
 export class UsersController {
   usersService = new UsersService();
+
+  //eamil 인증 구현
+  emailSend = async (req, res, next) => {
+    try {
+      const { email, auth } = req.body;
+      sendEmail(email, auth);
+
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      next(err);
+    }
+  };
+
   userSignup = async (req, res, next) => {
     try {
       const {

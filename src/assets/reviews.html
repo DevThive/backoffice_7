@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>배달 플랫폼 리뷰</title>
-    <link rel="stylesheet" href="../css/reviews.css" />
+    <link rel="stylesheet" href=".//style.css" />
   </head>
   <body>
     <div class="review-container">
-      <h2>배달의 원조 리뷰 작성</h2>
+      <h2>배달의 원조 리뷰</h2>
 
       <div class="rating" id="ratingContainer">
         <span>별점:</span>
@@ -25,8 +25,11 @@
       ></textarea>
 
       <button class="submit-btn" onclick="submitReview()">리뷰 등록</button>
+
+      <!-- 리뷰를 표시하는 영역 -->
+      <div class="reviews-list" id="reviewsList"></div>
     </div>
 
-    <script src="../js/reviews.js"></script>
+    <script src="./reviews.js"></script>
   </body>
 </html>
