@@ -6,6 +6,7 @@ export function authAdminMiddleware(req, res, next) {
   const { authorization } = req.headers;
   const [authType, authToken] = (authorization ?? '').split(' ');
 
+	console.log(req.headers)
   console.log(authorization);
 
   // 인증 완료
