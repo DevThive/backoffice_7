@@ -64,15 +64,15 @@ model BusinessHours {
 	@@map("BusinessHours")
 }
 
-model Menus {
-    menuId Int @id @default(autoincrement()) @map("menuId")
+model Products {
+    productId Int @id @default(autoincrement()) @map("productId")
     title String @map("title")
     description String @map("description")
-    price String @map("nickname")
-
-
+    price String @map("price")
+    status String @default("FOR_SALE")
+    imageUrl String @map("imageUrl")
     createdAt DateTime @default(now()) @map("createdAt")
     updatedAt DateTime @updatedAt @map("updatedAt")
 
-    @@map("Menus")
+    @@map("Products")
 }
