@@ -17,3 +17,6 @@ router.get('/:menuId', menusController.getMenu);
 //메뉴 수정
 router.put('/:menuId', menusController.updateMenu);
 export default router;
+
+//메뉴 삭제
+router.delete('/:menuId', menusController.deleteMenu);

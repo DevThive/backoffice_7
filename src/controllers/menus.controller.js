@@ -55,5 +55,32 @@ export class MenusController {
   };
 
   //메뉴 수정
-  updateMenu = async (req, res, next) => {};
+  updateMenu = async (req, res, next) => {
+    const menuId = parseInt(req.params.menuId);
+    try {
+      const { title, description, price } = req.body;
+      if (!title && !description && !price) {
+        res.status(404).json({ message: '수정 내용을 입력해주세요.' });
+      }
+      if (!menuId) {
+        res.status(404).json({ message: '없는 메뉴입니다.' });
+      }
+      const updatedMenu = await this.menusService.updateMenu(
+        menuId,
+        title,
+        description,
+        price,
+      );
+      res.json({ message: '수정완료', updatedMenu });
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  //메뉴 삭제
+  deleteMenu = async (req, res, next) => {
+    const menuId = parseInt(req.params.menuId);
+    await this.menusService.deleteMenu(menuId);
+    res.status(200).json({ message: '삭제완료.' });
+  };
 }

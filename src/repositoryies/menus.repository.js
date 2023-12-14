@@ -22,4 +22,20 @@ export class MenusRepository {
     await prisma.menus.findUnique({
       where: { menuId },
     });
+
+  //메뉴 수정하기
+  updateMenu = async (menuId, title, description, price) => {
+    try {
+      await prisma.menus.update({
+        where: { menuId },
+        data: { title, description, price },
+      });
+    } catch (e) {
+      throw e;
+    }
+  };
+
+  //메뉴 삭제하기
+  deleteMenu = async (menuId) =>
+    await prisma.menus.delete({ where: { menuId } });
 }
