@@ -1,5 +1,6 @@
+const days = '일월화수목금토'
+
 function makeBusinessHourForm(){
-	const days = '일월화수목금토'
 	for(let i=0;i<7;++i){
 		const dayForm = $(`<div class="businessHour" id="day${i}"><label>${days[i]}요일</label></div>`)
 		const dayoff = $(`<input type="checkbox" id="dayoff${i}" name="dayoff${i}">
@@ -98,5 +99,29 @@ async function deleteDiner(dinerId){
 	}catch(e){
 		console.log(e)
 		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
+	}
+}
+
+async function showDiner(dinerId){
+	try{
+		const res = await axios.get(server+`/api/diners/${dinerId}`)
+		const diner = res.data.diner
+		$("#name").text(diner.name)
+		$("#type").text(diner.type || '-')
+		$("#address").text(diner.address)
+		$("#phoneNumber").text(diner.phoneNumber)
+		$("#introduction").text(diner.introduction)
+		$("#homepage").text(diner.homepage || '-')
+		for(let {dayOfWeek:i,openTime,closeTime} of diner.BusinessHours)
+			$("#businessHours").append(`<tr>
+				<th>${days[i]}요일</th>
+				<td>${intToTime(openTime)}</td>
+				<td>${(openTime<closeTime? '':'다음날')+intToTime(closeTime)}</td>
+			</tr>
+			`)
+	}catch(e){
+		console.log(e)
+		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
+		location.href = "index.html"
 	}
 }

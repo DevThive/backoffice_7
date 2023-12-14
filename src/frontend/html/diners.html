@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>배달의 원조</title>
+  <style>
+    /* CSS styles for the list */
+    #list-container {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 16px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .diner-info {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="list-container">
+    <h1>오늘의 선택은?</h1>
+    <ul id="json-list">
+      <!-- JSON list items will be inserted here -->
+    </ul>
+  </div>
+
+  <script>
+    // Sample JSON data (replace this with your fetched JSON data)
+    const jsonData = {
+      "diners": [
+        {
+          "dinerId": 2,
+          "adminId": 2,
+          "name": "h",
+          "type": null,
+          "address": "h",
+          "phoneNumber": "h",
+          "introduction": "h",
+          "homepage": null,
+          "createdAt": "2023-12-13T13:00:27.584Z",
+          "updatedAt": "2023-12-13T13:00:27.584Z"
+        },
+        {
+          "dinerId": 6,
+          "adminId": 1,
+          "name": "a",
+          "type": null,
+          "address": "a",
+          "phoneNumber": "a",
+          "introduction": "a",
+          "homepage": "bb",
+          "createdAt": "2023-12-13T13:09:55.321Z",
+          "updatedAt": "2023-12-13T13:09:55.321Z"
+        }
+      ]
+    };
+
+    // Function to display diners list
+    function displayDiners() {
+      const listContainer = document.getElementById('json-list');
+      
+      jsonData.diners.forEach(diner => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <div class="diner-info">
+            매장명: ${diner.name}
+          </div>
+		  <div>
+            매장 분류: ${diner.type || '-'}
+          </div>
+          <div>
+            매장 주소: ${diner.address}
+          </div>
+          <div>
+            매장 전화번호: ${diner.phoneNumber}
+          </div>
+          <div>
+            Introduction: ${diner.introduction}
+          </div>
+        `;
+        listContainer.appendChild(listItem);
+      });
+    }
+
+    // Call the function to display diners
+    displayDiners();
+  </script>
+</body>
+</html>

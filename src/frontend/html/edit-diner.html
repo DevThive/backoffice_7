@@ -95,12 +95,12 @@
   <script src="../js/diner.js"></script>
   <script>
 	const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const dinerId = +urlParams.get("dinerId");
-		if(isNaN(dinerId)){
-			alert("해당 매장이 존재하지 없습니다.")
-			location.href = "index.html"
-		}
+	const urlParams = new URLSearchParams(queryString);
+	const dinerId = +urlParams.get("dinerId");
+	if(isNaN(dinerId)){
+		alert("해당 매장이 존재하지 않습니다.")
+		location.href = "index.html"
+	}
 	$(document).ready(async () => {
 		if(!await checkAdmin()){
 			alert("권한이 없습니다.")
