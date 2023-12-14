@@ -125,3 +125,30 @@ async function showDiner(dinerId){
 		location.href = "index.html"
 	}
 }
+
+async function getDiners(){
+	try{
+		const res = await axios.get(server+`/api/diners`)
+		const diners = res.data.diners
+		console.log(diners)
+		diners.forEach(diner => $("#diners").append($(`<li>
+			  <div class="diner-info">
+				매장명: ${diner.name}
+			  </div>
+			  <div>
+				매장 분류: ${diner.type || '-'}
+			  </div>
+			  <div>
+				매장 주소: ${diner.address}
+			  </div>
+			  <div>
+				매장 전화번호: ${diner.phoneNumber}
+			  </div>
+			</li>`
+		  )))
+	}catch(e){
+		console.log(e)
+		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
+		location.href = "index.html"
+	}
+}
