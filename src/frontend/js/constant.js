@@ -1,1 +1,1 @@
-const server = "http://localhost:8192"
+const server = 'http://localhost:8192';

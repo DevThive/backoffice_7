@@ -111,7 +111,7 @@
 		await getDiner(dinerId)
 		$("#diners-form").on("submit", async function(e){
 			e.preventDefault()
-			submitDiner(dinerId)
+			await submitDiner(dinerId)
 		})
 		const deleteBtn = $('<button>삭제</button>')
 		deleteBtn.click(async function(e){
