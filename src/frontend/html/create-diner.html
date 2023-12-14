@@ -99,6 +99,7 @@
 			location.href = "index.html"
 		}
 		makeBusinessHourForm()
+		$('#diners-form').append('<input type="submit" value="등록">')
 		$("#diners-form").on("submit", async function(e){
 			e.preventDefault()
 			submitDiner()

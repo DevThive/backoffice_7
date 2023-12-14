@@ -26,7 +26,6 @@ function makeBusinessHourForm(){
 		dayForm.append(closeTime)
 		$('#diners-form').append(dayForm)
 	}
-	$('#diners-form').append('<input type="submit" value="Submit">')
 }
 
 const timeToInt = time => +time.slice(3,)+100*time.slice(0,2)
@@ -52,7 +51,6 @@ async function submitDiner(dinerId=null){
 		if(!openTime || !closeTime) continue
 		businessHour[i] = [openTime,closeTime]
 	}
-	console.log(businessHour)
 	try{
 		if(dinerId){
 			const res = await axios.patch(server+`/api/diners/${dinerId}`,{name,type,address,phoneNumber,introduction,homepage,businessHour}, {headers})
@@ -89,6 +87,16 @@ async function getDiner(dinerId){
 	}catch(e){
 		console.log(e)
 		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
-		//location.href = "index.html"
+		location.href = "index.html"
+	}
+}
+
+async function deleteDiner(dinerId){
+	try{
+		await axios.delete(server+`/api/diners/${dinerId}`, {headers})
+		location.href = "index.html"
+	}catch(e){
+		console.log(e)
+		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
 	}
 }
