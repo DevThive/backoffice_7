@@ -4,9 +4,10 @@ export class ProductsService {
   productsRepository = new ProductsRepository();
 
   //메뉴 등록하기
-  createProduct = async (title, description, price, imageUrl) => {
+  createProduct = async (adminId, title, description, price, imageUrl) => {
     try {
       await this.productsRepository.createProduct(
+        adminId,
         title,
         description,
         price,
@@ -25,9 +26,39 @@ export class ProductsService {
     return await this.productsRepository.getProduct(productId);
   };
 
-  //메뉴 수정하기
-  updateProduct = async (productId, title, description, price, imageUrl) => {
+  async hasPermission(adminId, productId) {
     try {
+      const diner = await this.productsRepository.getDinerByAdminId(adminId);
+      const productWithDiner =
+        await this.productsRepository.getProductWithDiner(productId, adminId);
+
+      console.log(productWithDiner);
+
+      if (!diner || !productWithDiner || !productWithDiner.Diner) {
+        throw new Error('권한이 없습니다.');
+      }
+
+      return diner.adminId === productWithDiner.Diner.adminId;
+    } catch (e) {
+      throw e;
+    }
+  }
+  //메뉴 수정하기
+  updateProduct = async (
+    adminId,
+    productId,
+    title,
+    description,
+    price,
+    imageUrl,
+  ) => {
+    try {
+      const hasPermission = await this.hasPermission(adminId, productId);
+
+      if (!hasPermission) {
+        throw new Error('권한이 없습니다.');
+      }
+
       await this.productsRepository.updateProduct(
         productId,
         title,
@@ -39,8 +70,9 @@ export class ProductsService {
       throw e;
     }
   };
+
   //메뉴 삭제하기
-  deleteProduct = async (productId) => {
-    await this.productsRepository.deleteProduct(productId);
+  deleteProduct = async (productId, adminId) => {
+    await this.productsRepository.deleteProduct(productId, adminId);
   };
 }
