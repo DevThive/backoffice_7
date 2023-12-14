@@ -46,6 +46,7 @@ export class ReviewsController {
 
   createOne = async (req, res, next) => {
     try {
+      // const { userId, userName, rating, content } = req.body; =>test용도
       const user = res.locals.user;
       if (!user || !user.id) {
         return res.status(500).json({ error: '사용자 정보가 누락되었습니다.' });

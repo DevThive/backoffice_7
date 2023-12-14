@@ -45,7 +45,7 @@ export class ReviewsRepository {
   };
 
   createOne = async ({ rating, content, userId }) => {
-    const review = await prisma.review.create({
+    const review = await prisma.reviews.create({
       data: { rating, content, userId },
     });
 
