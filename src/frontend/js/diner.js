@@ -29,9 +29,14 @@ function makeBusinessHourForm(){
 	$('#diners-form').append('<input type="submit" value="Submit">')
 }
 
-const timeConvert = time => +time.slice(3,)+100*time.slice(0,2)
+const timeToInt = time => +time.slice(3,)+100*time.slice(0,2)
+const intToTime = n => {
+	const m = n%100
+	const h = (n-m)/100
+	return `${h<10? '0'+h:h}:${m<10? '0'+m:m}`
+}
 
-async function submitDiner(){
+async function submitDiner(dinerId=null){
 	const name = $("#name").val()
 	const type = $("#type").val()
 	const address = $("#address").val()
@@ -42,17 +47,48 @@ async function submitDiner(){
 	for(let i=0;i<7;++i){
 		const dayoff = $(`#dayoff${i}`).is(":checked")
 		if(dayoff) continue
-		const openTime = $(`#day${i}Opening`).val()
-		const closeTime = $(`#day${i}Closing`).val()
+		const openTime = timeToInt($(`#day${i}Opening`).val())
+		const closeTime = timeToInt($(`#day${i}Closing`).val())
 		if(!openTime || !closeTime) continue
-		
+		businessHour[i] = [openTime,closeTime]
 	}
+	console.log(businessHour)
 	try{
-		console.log(headers)
-		const res = await axios.post(server+'/api/diners',{name,type,address,phoneNumber,introduction,homepage,businessHour}, {headers})
-		console.log()
+		if(dinerId){
+			const res = await axios.patch(server+`/api/diners/${dinerId}`,{name,type,address,phoneNumber,introduction,homepage,businessHour}, {headers})
+			alert("매장 정보가 수정되었습니다.")
+		}
+		else{
+			const res = await axios.post(server+'/api/diners',{name,type,address,phoneNumber,introduction,homepage,businessHour}, {headers})
+			alert("매장이 등록되었습니다.")
+		}
+		location.href = "index.html"
 	}catch(e){
 		console.log(e)
 		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
+	}
+}
+
+async function getDiner(dinerId){
+	try{
+		const res = await axios.get(server+`/api/diners/${dinerId}`)
+		const diner = res.data.diner
+		$("#name").val(diner.name)
+		$("#type").val(diner.type)
+		$("#address").val(diner.address)
+		$("#phoneNumber").val(diner.phoneNumber)
+		$("#introduction").val(diner.introduction)
+		$("#homepage").val(diner.homepage)
+		for(let i=0;i<7;++i)
+			$(`#dayoff${i}`).click()
+		for(let {dayOfWeek:i,openTime,closeTime} of diner.BusinessHours){
+			$(`#dayoff${i}`).click()
+			$(`#day${i}Opening`).val(intToTime(openTime))
+			$(`#day${i}Closing`).val(intToTime(closeTime))
+		}
+	}catch(e){
+		console.log(e)
+		alert(e.response?.data?.message || e.response?.data?.errorMessage || "오류가 발생했습니다.")
+		//location.href = "index.html"
 	}
 }
