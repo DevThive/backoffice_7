@@ -187,7 +187,7 @@ export class UsersService {
 
     const token = jwt.sign(
       {
-        userId: adminInfo.userId,
+        adminId: adminInfo.adminId,
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
