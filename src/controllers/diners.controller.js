@@ -6,7 +6,7 @@ export class DinersController {
   // businessHour 유효성 체크
   isValidTime = (time) => {
     if (isNaN(time)) return false;
-    if (time < 0 || time > 4199 || time % 100 > 59) return false;
+    if (time < 0 || time > 4799 || time % 100 > 59) return false;
     return true;
   };
   isValidBusinessHour = (businessHour) => {
