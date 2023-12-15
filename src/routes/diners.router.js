@@ -13,6 +13,8 @@ router.post('/', authAdminMiddleware, dinersController.createDiner);
 router.get('/', dinersController.getDiners);
 // 식당 키워드 검색
 router.get('/search', dinersController.searchDiners);
+// 사장이 이미 가진 식당이 있는지 검색
+router.get('/admin/:adminId', dinersController.adminHasDiner)
 // 특정 식당 조회
 router.get('/:dinerId', dinersController.findDiner, dinersController.getDiner);
 // 식당 정보 수정

@@ -103,6 +103,20 @@ export class DinersController {
     res.locals.diner = diner;
     next();
   };
+  
+  // 사장이 이미 가진 식당이 있는지 검색
+  adminHasDiner = async (req, res) => {
+	  const adminId = +req.params.adminId
+	  if (isNaN(adminId))
+		  return res
+			.status(400)
+			.json({ message: '잘못된 요청입니다.' })
+	const diner = await this.dinersService.getDiner({ adminId })
+	if(diner) return res
+			.status(400)
+			.json({ message: '이미 등록하신 식당이 있습니다.' })
+	res.json({message: '식당을 등록하실 수 있습니다.'})
+  }
 
   // 특정 식당 조회
   getDiner = async (req, res) => res.json({ diner: res.locals.diner });
