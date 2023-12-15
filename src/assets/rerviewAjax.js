@@ -2,7 +2,7 @@
 function fetchReviews(dinerId, callback) {
   $.ajax({
     type: 'GET',
-    url: `/api/${dinerId}/reviews`,
+    url: `/api/review/${dinerId}/reviews`,
     success: function (response) {
       callback(response.data);
     },
@@ -20,7 +20,7 @@ function fetchReviews(dinerId, callback) {
 function fetchReviewDetail(dinerId, reviewId, callback) {
   $.ajax({
     type: 'GET',
-    url: `/api/${dinerId}/reviews/${reviewId}`,
+    url: `/api/review/${dinerId}/reviews/${reviewId}`,
     success: function (response) {
       callback(response.data);
     },
@@ -40,7 +40,7 @@ function fetchReviewDetail(dinerId, reviewId, callback) {
 function submitReview(dinerId, rating, content, callback) {
   $.ajax({
     type: 'POST',
-    url: `/api/${dinerId}/reviews`,
+    url: `/api/review/${dinerId}/reviews`,
     headers: {
       authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -65,7 +65,7 @@ function submitReview(dinerId, rating, content, callback) {
 function updateReview(dinerId, reviewId, rating, content, callback) {
   $.ajax({
     type: 'PUT',
-    url: `/api/${dinerId}/reviews/${reviewId}`,
+    url: `/api/review/${dinerId}/reviews/${reviewId}`,
     headers: {
       authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -92,7 +92,7 @@ function updateReview(dinerId, reviewId, rating, content, callback) {
 function deleteReview(dinerId, reviewId, callback) {
   $.ajax({
     type: 'DELETE',
-    url: `/api/${dinerId}/reviews/${reviewId}`,
+    url: `/api/review/${dinerId}/reviews/${reviewId}`,
     headers: {
       authorization: `Bearer ${localStorage.getItem('token')}`,
     },
