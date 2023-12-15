@@ -3,7 +3,6 @@ import { sendEmail } from '../server/email.js';
 
 import resBody from '../server/resBody.js';
 
-
 export class UsersController {
   usersService = new UsersService();
 
@@ -109,19 +108,6 @@ export class UsersController {
       return res.status(200).json({
         message: '토큰이 정상적입니다.',
         data: { email, nickname, adminId },
-      });
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  admincheckToken = async (req, res, next) => {
-    try {
-      const { email, nickname } = res.locals.admin;
-
-      return res.status(200).json({
-        message: '토큰이 정상적입니다.',
-        data: { email, nickname },
       });
     } catch (err) {
       next(err);
