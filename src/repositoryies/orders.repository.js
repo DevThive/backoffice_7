@@ -83,4 +83,61 @@ export class OrdersRepository {
     // 트랜잭션 성공 시 반환
     return transaction[0];
   }
+
+  getProductsByDiner = async (dinerId) => {
+    try {
+      const products = await prisma.products.findMany({
+        where: { dinerId },
+      });
+      return products;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 식당 dinerId가 존재하나 확인
+  checkDinerExists = async (dinerId) => {
+    try {
+      const diner = await prisma.diners.findUnique({
+        where: { dinerId },
+      });
+
+      return !!diner;
+    } catch (error) {
+      throw error;
+    }
+  };
+  getDinerByDinerId = async (dinerId) => {
+    try {
+      const diner = await prisma.diners.findUnique({
+        where: { dinerId },
+      });
+      return diner;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  getProductWithDiner = async (productId, dinerId) => {
+    try {
+      const product = await prisma.products.findUnique({
+        where: { productId },
+        include: {
+          Diner: {
+            select: {
+              dinerId: true,
+            },
+          },
+        },
+      });
+
+      if (!product || product.dinerId !== product.adminId) {
+        throw new Error('해당 메뉴를 찾을 수 없거나 권한이 없습니다.');
+      }
+
+      return product;
+    } catch (error) {
+      throw error;
+    }
+  };
 }

@@ -7,4 +7,9 @@ const ordersController = new OrdersController();
 
 router.post('/diner/:dinerId', authMiddleware, ordersController.createOrder);
 
+router.get(
+  '/diner/:dinerId',
+  authMiddleware,
+  ordersController.getProductByDiner,
+);
 export default router;

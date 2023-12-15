@@ -29,4 +29,26 @@ export class OrdersController {
       next(e);
     }
   };
+
+  getProductByDiner = async (req, res, next) => {
+    try {
+      const dinerId = +req.params.dinerId;
+      const dinerExists = await this.ordersService.checkDinerExists(dinerId);
+      if (!dinerExists) {
+        // 식당이 없을 경우
+        res.status(404).json({ message: '해당 식당이 존재하지 않습니다.' });
+        return;
+      }
+
+      const products = await this.ordersService.getProductsByDiner(dinerId);
+      if (!products || products.length === 0) {
+        // 식당 정보가 없을 경우
+        res.status(404).json({ message: '해당 식당의 메뉴가 없습니다.' });
+        return;
+      }
+      res.json({ products });
+    } catch (e) {
+      next(e);
+    }
+  };
 }
