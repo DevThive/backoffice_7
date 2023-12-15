@@ -89,7 +89,7 @@ async function submitDiner(dinerId = null) {
       );
       alert('매장이 등록되었습니다.');
     }
-    //location.href = 'index.html';
+    location.href = 'index.html';
   } catch (e) {
     console.log(e);
     alert(
@@ -100,7 +100,7 @@ async function submitDiner(dinerId = null) {
   }
 }
 
-async function getDiner(dinerId) {
+async function getDiner(dinerId,adminId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
