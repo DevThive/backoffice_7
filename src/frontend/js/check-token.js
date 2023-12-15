@@ -12,7 +12,6 @@ async function checkAdmin() {
       const response = await axios.get(server + '/api/users/auth/admin/me', {
 		  headers});
       user = response.data.data;
-		console.log(user)
       if (user) {
         return user;
       }
