@@ -100,7 +100,7 @@ async function submitDiner(dinerId = null) {
   }
 }
 
-async function getDiner(dinerId) {
+async function getDiner(dinerId,adminId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
@@ -127,7 +127,7 @@ async function getDiner(dinerId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    location.href = 'index.html';
+    //location.href = 'index.html';
   }
 }
 
@@ -169,7 +169,7 @@ async function showDiner(dinerId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    location.href = 'index.html';
+    //location.href = 'index.html';
   }
 }
 
@@ -209,7 +209,7 @@ async function getDiners(diners = null) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    location.href = 'index.html';
+    //location.href = 'index.html';
   }
 }
 

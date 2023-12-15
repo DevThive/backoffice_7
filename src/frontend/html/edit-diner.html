@@ -110,7 +110,7 @@
 		}
 		makeBusinessHourForm()
 		$('#diners-form').append('<input type="submit" value="수정">')
-		await getDiner(dinerId)
+		await getDiner(dinerId,adminId)
 		$("#diners-form").on("submit", async function(e){
 			e.preventDefault()
 			await submitDiner(dinerId)
