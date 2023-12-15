@@ -102,7 +102,9 @@
 		location.href = "index.html"
 	}
 	$(document).ready(async () => {
-		if(!await checkAdmin()){
+		const admin = await checkAdmin()
+		const adminId = admin.adminId
+		if(!adminId){
 			alert("권한이 없습니다.")
 			location.href = "index.html"
 		}

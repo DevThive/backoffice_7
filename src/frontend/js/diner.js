@@ -104,6 +104,10 @@ async function getDiner(dinerId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
+	if(adminId !== diner.adminId){
+			alert("권한이 없습니다.")
+			location.href = "index.html"
+		}
     $('#name').val(diner.name);
     $('#type').val(diner.type);
     $('#address').val(diner.address);
