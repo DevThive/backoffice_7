@@ -96,7 +96,7 @@
 	$(document).ready(async () => {
 		if(!await checkAdmin()){
 			alert("권한이 없습니다.")
-			location.href = "index.html"
+			//location.href = "index.html"
 		}
 		makeBusinessHourForm()
 		$('#diners-form').append('<input type="submit" value="등록">')
