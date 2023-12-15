@@ -128,6 +128,19 @@ export class UsersController {
     }
   };
 
+  admincheckToken = async (req, res, next) => {
+    try {
+      const { email, nickname } = res.locals.admin;
+
+      return res.status(200).json({
+        message: '토큰이 정상적입니다.',
+        data: { email, nickname },
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
   userLogout = async (req, res, next) => {
     try {
       res.clearCookie('Authorization');
