@@ -1,17 +1,21 @@
 function getSelf(callback) {
   $.ajax({
     type: 'GET',
+
     url: '/api/users/auth/user/me',
+
     headers: {
       authorization: `Bearer ${localStorage.getItem('token')}`,
     },
     success: function (response) {
+
       console.log(response.user);
 
       callback(response.user);
     },
     error: function (xhr, status, error) {
       if (status == 500) {
+
         alert('로그인이 필요합니다.');
       } else {
         localStorage.clear();

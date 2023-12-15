@@ -43,7 +43,9 @@
   <header data-bs-theme="dark">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
+
         <a class="navbar-brand" href="#">Food Web</a>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -68,6 +70,7 @@
             </li>
           </ul>
 
+
           <button
             style="margin: 3px"
             type="button"
@@ -85,6 +88,7 @@
           >
             Sign Up
           </button>
+
         </div>
       </div>
     </nav>
@@ -95,6 +99,7 @@
     <div
       class="modal fade"
       id="loginModal"
+
       data-bs-backdrop="static"
       tabindex="-1"
       aria-labelledby="staticBackdropLabel"
@@ -114,6 +119,7 @@
             ></button>
           </div>
           <div class="modal-body">
+
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
                 <a
@@ -500,6 +506,7 @@
             </div>
           </div>
           <!-- <div class="modal-footer">
+
             <button
               type="button"
               class="btn btn-secondary"
@@ -507,10 +514,12 @@
             >
               Close
             </button>
+
             <button type="submit" class="btn btn-primary" onclick="sign_up()">
               Sign up 1
             </button>
           </div> -->
+
         </div>
       </div>
     </div>
@@ -532,6 +541,7 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+
     <script src="/api.js"></script>
 
     <script>
@@ -542,6 +552,7 @@
           window.location.replace('/main.html');
         });
       }
+
     </script>
 
     <!-- 주소 api -->
@@ -656,19 +667,23 @@
     </script>
 
     <script>
+
       function sign_in() {
         let email = $('#inputEmail').val();
         let password = $('#inputPassword').val();
         console.log(email, password);
         $.ajax({
           type: 'POST',
+
           url: 'api/users/auth/user',
+
           data: {
             email: email,
             password: password,
           },
           success: function (response) {
             localStorage.setItem('token', response.token);
+
             console.log(response.token);
             alert('로그인 되었습니다.');
             window.location.replace('/main.html');
@@ -785,6 +800,7 @@
           error: function (error) {
             alert(error.responseJSON.errors[0].msg);
             console.log(error.responseJSON.errors[0].msg);
+
           },
         });
       }
