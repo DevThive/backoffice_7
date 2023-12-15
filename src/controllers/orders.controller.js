@@ -5,7 +5,7 @@ export class OrdersController {
   createOrder = async (req, res, next) => {
     try {
       const { productId, amount } = req.body;
-      const user = res.locals.user;
+      const { user } = res.locals;
 
       const productPrice = await this.ordersService.calculateProductPrice(
         productId,

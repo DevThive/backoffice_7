@@ -23,9 +23,11 @@ export function authMiddleware(req, res, next) {
 
   try {
     const { userId } = jwt.verify(tokenCredential, process.env.SECRET_KEY);
+
     // 인증에 성공하는 경우에는 req.locals.user에 인증 된 사용자 정보를 담고, 다음 동작을 진행
     prisma.users.findUnique({ where: { userId } }).then((user) => {
       res.locals.user = user;
+
       next();
     });
   } catch (error) {
