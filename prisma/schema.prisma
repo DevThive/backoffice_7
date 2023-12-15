@@ -20,7 +20,7 @@ model Users {
 
     createdAt DateTime @default(now()) @map("createdAt")
     updatedAt DateTime @updatedAt @map("updatedAt")
-
+	Orders Orders[]
     @@map("Users")
 }
 
@@ -52,6 +52,8 @@ model Diners {
 	createdAt DateTime @default(now()) @map("createdAt")
     updatedAt DateTime @updatedAt @map("updatedAt")
 	BusinessHours BusinessHours[]
+  Products Products[]
+  Orders Orders[]
 	Admin1 Admin @relation(fields:[adminId],references:[adminId], onDelete:Cascade)
     @@map("Diners")
 }
@@ -64,4 +66,34 @@ model BusinessHours {
 	Diner Diners @relation(fields:[dinerId], references:[dinerId], onDelete:Cascade)
 	@@id([dinerId, dayOfWeek])
 	@@map("BusinessHours")
+}
+
+model Products {
+  dinerId   Int      @map("dinerId")
+  adminId   Int      @map("adminId")
+  productId Int      @id @default(autoincrement()) @map("productId")
+  title     String   @map("title")
+  description String @map("description")
+  price     String   @map("price")
+  status    String   @default("FOR_SALE")
+  imageUrl  String   @map("imageUrl")
+  createdAt DateTime  @default(now()) @map("createdAt")
+  updatedAt DateTime? @updatedAt
+  Orders Orders[]
+  Diner     Diners   @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
+}
+
+model Orders {
+	orderId Int @id @default(autoincrement())
+	amount Int
+	dinerId Int
+	userId Int
+	productId Int
+	status String
+	createdAt DateTime  @default(now()) @map("createdAt")
+	updatedAt DateTime? @updatedAt
+	Diner     Diners   @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
+	User Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
+	Product Products @relation(fields: [productId], references: [productId], onDelete: Cascade)
+	@@map("Orders")
 }

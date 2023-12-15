@@ -6,7 +6,7 @@ import resBody from '../server/resBody.js';
 export function authAdminMiddleware(req, res, next) {
   console.log('---------------- admin');
 
-  const { Authorization } = req.cookies;
+  const Authorization = req.cookies.Authorization || req.headers.authorization;
   console.log(Authorization);
 
   if (!Authorization) {
