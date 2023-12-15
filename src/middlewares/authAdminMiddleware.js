@@ -6,7 +6,7 @@ import resBody from '../server/resBody.js';
 export function authAdminMiddleware(req, res, next) {
   console.log('---------------- admin');
 
-  const Authorization = req.cookies.Authorization || req.headers.authorization;
+  const { Authorization } = req.cookies;
   console.log(Authorization);
 
   if (!Authorization) {
@@ -24,8 +24,8 @@ export function authAdminMiddleware(req, res, next) {
   try {
     const { adminId } = jwt.verify(tokenCredential, process.env.SECRET_KEY);
     // 인증에 성공하는 경우에는 req.locals.user에 인증 된 사용자 정보를 담고, 다음 동작을 진행
-    prisma.admin.findUnique({ where: { adminId } }).then((user) => {
-      res.locals.user = user;
+    prisma.admin.findUnique({ where: { adminId } }).then((admin) => {
+      res.locals.admin = admin;
       next();
     });
   } catch (error) {
