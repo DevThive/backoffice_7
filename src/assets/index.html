@@ -114,27 +114,74 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label"
-                >Email address</label
-              >
-              <input
-                type="email"
-                class="form-control"
-                id="inputEmail"
-                placeholder="name@example.com"
-              />
-            </div>
-            <label for="inputPassword" class="form-label">Password</label>
-            <input
-              type="password"
-              id="inputPassword"
-              class="form-control"
-              aria-describedby="passwordHelpBlock"
-            />
-            <div id="passwordHelpBlock" class="form-text">
-              비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백, 특수
-              문자 또는 이모티콘을 포함할 수 없습니다.
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  href="#tab1"
+                  role="tab"
+                  >Users</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab"
+                  >Admin</a
+                >
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab1" role="tabpanel">
+                <!-- user content -->
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <label for="inputPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  id="inputPassword"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                />
+                <div id="passwordHelpBlock" class="form-text">
+                  비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백,
+                  특수 문자 또는 이모티콘을 포함할 수 없습니다.
+                </div>
+              </div>
+              <div class="tab-pane" id="tab2" role="tabpanel">
+                <!-- admin content -->
+                <div class="mb-3">
+                  <label for="exampleFormControlInput1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <label for="inputPassword" class="form-label">Password</label>
+                <input
+                  type="password"
+                  id="inputPassword"
+                  class="form-control"
+                  aria-describedby="passwordHelpBlock"
+                />
+                <div id="passwordHelpBlock" class="form-text">
+                  비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백,
+                  특수 문자 또는 이모티콘을 포함할 수 없습니다.
+                </div>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -174,95 +221,230 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="mb-3">
-              <label for="signupEmail" class="form-label">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="signupEmail"
-                placeholder="name@example.com"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="signupNickname" class="form-label">Nickname</label>
-              <input
-                type="text"
-                class="form-control"
-                id="signupNickname"
-                placeholder="Nickname"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="signupPassword" class="form-label">Password</label>
-              <input
-                type="password"
-                id="signupPassword"
-                class="form-control"
-                aria-describedby="passwordHelpBlock"
-              />
-              <div id="passwordHelpBlock" class="form-text">
-                비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백, 특수
-                문자 또는 이모티콘을 포함할 수 없습니다.
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  href="#signuptab1"
+                  role="tab"
+                  >Users</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  href="#signuptab2"
+                  role="tab"
+                  >Admin</a
+                >
+              </li>
+            </ul>
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="signuptab1" role="tabpanel">
+                <!-- user content -->
+                <div class="mb-3">
+                  <label for="signupEmail" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="signupEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupNickname" class="form-label"
+                    >Nickname</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signupNickname"
+                    placeholder="Nickname"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupPassword" class="form-label"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    id="signupPassword"
+                    class="form-control"
+                    aria-describedby="passwordHelpBlock"
+                  />
+                  <div id="passwordHelpBlock" class="form-text">
+                    비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백,
+                    특수 문자 또는 이모티콘을 포함할 수 없습니다.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="checkPassword" class="form-label"
+                    >CheckPassword</label
+                  >
+                  <input
+                    type="password"
+                    id="checkPassword"
+                    class="form-control"
+                    aria-describedby="passwordHelpBlock"
+                  />
+                  <div id="passwordHelpBlock" class="form-text">
+                    비밀번호와 동일하게 입력해주세요.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="checkPassword" class="form-label">Address</label>
+                  <!-- 주소 API -->
+                  <button
+                    type="button"
+                    onclick="sample6_execDaumPostcode()"
+                    class="btn-outline-black"
+                  >
+                    우편번호 찾기
+                  </button>
+                  <input
+                    type="text"
+                    id="sample6_postcode"
+                    placeholder="우편번호"
+                    class="form-control"
+                  />
+                  <br />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_address"
+                    placeholder="주소"
+                  /><br />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_detailAddress"
+                    placeholder="상세주소"
+                  />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_extraAddress"
+                    placeholder="참고항목"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupPhone" class="form-label"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signupPhone"
+                    placeholder="010-0000-0000"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="mb-3">
-              <label for="checkPassword" class="form-label"
-                >CheckPassword</label
-              >
-              <input
-                type="password"
-                id="checkPassword"
-                class="form-control"
-                aria-describedby="passwordHelpBlock"
-              />
-              <div id="passwordHelpBlock" class="form-text">
-                비밀번호와 동일하게 입력해주세요.
+              <div class="tab-pane" id="signuptab2" role="tabpanel">
+                <!-- admin content -->
+                <div class="mb-3">
+                  <label for="signupAdminEmail" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="signupAdminEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupAdminNickname" class="form-label"
+                    >Nickname</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signupAdminNickname"
+                    placeholder="Nickname"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupAdminPassword" class="form-label"
+                    >Password</label
+                  >
+                  <input
+                    type="password"
+                    id="signupAdminPassword"
+                    class="form-control"
+                    aria-describedby="passwordHelpBlock"
+                  />
+                  <div id="passwordHelpBlock" class="form-text">
+                    비밀번호는 8~20자 길이로 문자와 숫자를 포함해야 하며 공백,
+                    특수 문자 또는 이모티콘을 포함할 수 없습니다.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="checkAdminPassword" class="form-label"
+                    >CheckPassword</label
+                  >
+                  <input
+                    type="password"
+                    id="checkAdminPassword"
+                    class="form-control"
+                    aria-describedby="passwordHelpBlock"
+                  />
+                  <div id="passwordHelpBlock" class="form-text">
+                    비밀번호와 동일하게 입력해주세요.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="checkAddress" class="form-label">Address</label>
+                  <!-- 주소 API -->
+                  <button
+                    type="button"
+                    onclick="sample6_execDaumPostcode()"
+                    class="btn-outline-black"
+                  >
+                    우편번호 찾기
+                  </button>
+                  <input
+                    type="text"
+                    id="sample6_postcode"
+                    placeholder="우편번호"
+                    class="form-control"
+                  />
+                  <br />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_address"
+                    placeholder="주소"
+                  /><br />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_detailAddress"
+                    placeholder="상세주소"
+                  />
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="sample6_extraAddress"
+                    placeholder="참고항목"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="signupAdminPhone" class="form-label"
+                    >Market Number</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="signupAdminPhone"
+                    placeholder="010-0000-0000"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="mb-3">
-              <label for="checkPassword" class="form-label">Address</label>
-              <!-- 주소 API -->
-              <button
-                type="button"
-                onclick="sample6_execDaumPostcode()"
-                class="btn-outline-black"
-              >
-                우편번호 찾기
-              </button>
-              <input
-                type="text"
-                id="sample6_postcode"
-                placeholder="우편번호"
-                class="form-control"
-              />
-              <br />
-              <input
-                class="form-control"
-                type="text"
-                id="sample6_address"
-                placeholder="주소"
-              /><br />
-              <input
-                class="form-control"
-                type="text"
-                id="sample6_detailAddress"
-                placeholder="상세주소"
-              />
-              <input
-                class="form-control"
-                type="text"
-                id="sample6_extraAddress"
-                placeholder="참고항목"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="signupPhone" class="form-label">Phone Number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="signupPhone"
-                placeholder="010-0000-0000"
-              />
             </div>
           </div>
           <div class="modal-footer">
@@ -387,7 +569,32 @@
           error: function (error) {
             console.log(error);
             alert('이메일 또는 비밀번호를 확인해주세요');
-            windows.location.reload;
+            windows.location.reload();
+          },
+        });
+      }
+
+      function admin_sign_in() {
+        let email = $('#inputAdminEmail').val();
+        let password = $('#inputAdminPassword').val();
+        console.log(email, password);
+        $.ajax({
+          type: 'POST',
+          url: 'api/users/auth/admin',
+          data: {
+            email: email,
+            password: password,
+          },
+          success: function (response) {
+            localStorage.setItem('token', response.token);
+            console.log(response.token);
+            alert('로그인 되었습니다.');
+            window.location.replace('./admin.html');
+          },
+          error: function (error) {
+            console.log(error);
+            alert('이메일 또는 비밀번호를 확인해주세요.');
+            windows.location.reload();
           },
         });
       }
@@ -431,6 +638,11 @@
             console.log(error.responseJSON.errors);
           },
         });
+      }
+
+      function admin_sign_up() {
+        let email = $('#signupAdminEmail').val();
+        let nickname = $('#signupAdminNickname').val();
       }
 
       function customAlert(text) {
