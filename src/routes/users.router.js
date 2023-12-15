@@ -15,5 +15,5 @@ router.post('/auth/admin', usersController.adminSignin);
 
 router.get('/auth/user/me', authMiddleware, usersController.checkToken);
 router.get('/auth/admin/me', authAdminMiddleware, usersController.checkToken);
-
+router.post('/logout', usersController.userLogout);
 export default router;
