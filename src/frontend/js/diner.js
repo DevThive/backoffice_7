@@ -89,7 +89,7 @@ async function submitDiner(dinerId = null) {
       );
       alert('매장이 등록되었습니다.');
     }
-    //location.href = 'index.html';
+    location.href = 'index.html';
   } catch (e) {
     console.log(e);
     alert(
@@ -127,7 +127,7 @@ async function getDiner(dinerId,adminId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    //location.href = 'index.html';
+    location.href = 'index.html';
   }
 }
 
@@ -169,7 +169,7 @@ async function showDiner(dinerId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    //location.href = 'index.html';
+    location.href = 'index.html';
   }
 }
 
@@ -209,7 +209,7 @@ async function getDiners(diners = null) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    //location.href = 'index.html';
+    location.href = 'index.html';
   }
 }
 
