@@ -14,16 +14,9 @@ model Users {
     nickname String @unique @map("nickname")
     address String @map("address")
     phoneNumber String @map("phoneNumber")
-<<<<<<< HEAD
-    type String @map("type")
-    point Int @map("point")
-   
-   //reviews Reviews[]
-=======
     type String @default("USER") @map("type")
     point Int @default(1000000) @map("point") 
 
->>>>>>> d71c61000aa0613383ad6e776d58e82cc480bc37
 
     createdAt DateTime @default(now()) @map("createdAt")
     updatedAt DateTime @updatedAt @map("updatedAt")
@@ -31,7 +24,6 @@ model Users {
     @@map("Users")
 }
 
-<<<<<<< HEAD
 model Reviews {
   reviewId Int @id @default(autoincrement()) @map("reviewId")
   rating Int @map("rating")
@@ -54,7 +46,6 @@ model Reviews {
 //Model admins에 추가 reviews Reviews[]
 //Model menu에 추가 reviews Reviews[]
 
-=======
 model Admin {
   adminId Int @id @default(autoincrement()) @map("adminId")
   email String @unique @map("email")
@@ -71,7 +62,6 @@ model Admin {
   @@map("Admin")
 }
 
->>>>>>> d71c61000aa0613383ad6e776d58e82cc480bc37
 model Diners {
 	dinerId Int @id @default(autoincrement())
 	adminId Int @unique

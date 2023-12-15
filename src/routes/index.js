@@ -11,7 +11,7 @@ const router = express.Router();
 
 //user
 router.use('/users', UsersRouter);
-router.use('/diners/:dinerId/reviews', ReviewsRouter);
+router.use('/diners', ReviewsRouter);
 router.use('/diners', DinersRouter);
 
 export default router;

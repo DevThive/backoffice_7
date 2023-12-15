@@ -7,14 +7,22 @@ const router = express.Router();
 const reviewsController = new ReviewsController();
 
 // 리뷰 조회
-router.get('', reviewsController.readMany);
+router.get('/:dinerId/reviews', reviewsController.readMany);
 // 리뷰 상세 조회
-router.get('/:reviewId', reviewsController.readOne);
+router.get('/:dinerId/reviews/:reviewId', reviewsController.readOne);
 // 리뷰 등록
-router.post('', authMiddleware, reviewsController.createOne);
+router.post('/:dinerId/reviews', authMiddleware, reviewsController.createOne);
 // 리뷰 수정
-router.put('/:reviewId', authMiddleware, reviewsController.updateOne);
+router.put(
+  '/:dinerId/reviews/:reviewId',
+  authMiddleware,
+  reviewsController.updateOne,
+);
 // 리뷰 삭제
-router.delete('/:reviewId', authMiddleware, reviewsController.deleteOne);
+router.delete(
+  '/:dinerId/reviews/:reviewId',
+  authMiddleware,
+  reviewsController.deleteOne,
+);
 
 export default router;

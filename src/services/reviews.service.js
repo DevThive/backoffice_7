@@ -24,6 +24,8 @@ export class ReviewsService {
       userId,
       userName,
     });
+
+    return review;
   };
 
   updateOne = async ({ userId, userName, id, rating, content }) => {

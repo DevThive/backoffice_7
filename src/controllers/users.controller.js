@@ -32,11 +32,8 @@ export class UsersController {
         nickname,
         password,
         confirmpassword,
-<<<<<<< HEAD
-=======
         address,
         phoneNumber,
->>>>>>> d71c61000aa0613383ad6e776d58e82cc480bc37
       );
 
       return res
