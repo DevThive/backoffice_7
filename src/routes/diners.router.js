@@ -1,9 +1,11 @@
 import express from 'express';
+import { OrdersController } from '../controllers/orders.controller.js';
 import { DinersController } from '../controllers/diners.controller.js';
 import { authAdminMiddleware } from '../middlewares/authAdminMiddleware.js';
 
 const router = express.Router();
 const dinersController = new DinersController();
+const ordersController = new OrdersController();
 
 // 식당 등록
 router.post('/', authAdminMiddleware, dinersController.createDiner);
@@ -26,6 +28,22 @@ router.delete(
   authAdminMiddleware,
   dinersController.findDiner,
   dinersController.deleteDiner,
+);
+
+// 식당별 주문 조회
+router.get(
+  '/:dinerId/orders',
+  authAdminMiddleware,
+  dinersController.findDiner,
+  ordersController.getOrdersByDiner,
+);
+// 주문 완료 처리
+router.patch(
+  '/:dinerId/orders/:orderId',
+  authAdminMiddleware,
+  dinersController.findDiner,
+  ordersController.findOrder,
+  ordersController.updateOrder,
 );
 
 export default router;
