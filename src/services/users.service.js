@@ -162,7 +162,7 @@ export class UsersService {
       {
         userId: loginInfo.userId,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      process.env.SECRET_KEY,
       {
         expiresIn: '12h',
       },
@@ -189,7 +189,7 @@ export class UsersService {
       {
         adminId: adminInfo.adminId,
       },
-      process.env.ACCESS_TOKEN_SECRET,
+      process.env.SECRET_KEY,
       {
         expiresIn: '12h',
       },
