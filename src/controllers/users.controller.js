@@ -100,9 +100,22 @@ export class UsersController {
     }
   };
 
-  checkToken = async (req, res, next) => {
+  usercheckToken = async (req, res, next) => {
     try {
       const { email, nickname } = res.locals.user;
+
+      return res.status(200).json({
+        message: '토큰이 정상적입니다.',
+        data: { email, nickname },
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  admincheckToken = async (req, res, next) => {
+    try {
+      const { email, nickname } = res.locals.admin;
 
       return res.status(200).json({
         message: '토큰이 정상적입니다.',
