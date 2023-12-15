@@ -12,6 +12,6 @@ const router = express.Router();
 //user
 router.use('/users', UsersRouter);
 router.use('/diners', DinersRouter);
-router.use('/diners/:dinerId/products', ProductsRouter);
+router.use('/products', ProductsRouter);
 
 export default router;

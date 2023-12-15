@@ -26,6 +26,23 @@ export class ProductsService {
     return await this.productsRepository.getProduct(productId);
   };
 
+  //특정 식당의 메뉴조회
+
+  async checkDinerExists(dinerId) {
+    try {
+      const dinerExists = await this.productsRepository.checkDinerExists(
+        dinerId,
+      );
+      return !!dinerExists;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  getProductsByDiner = async (dinerId) => {
+    return await this.productsRepository.getProductsByDiner(dinerId);
+  };
+
   async hasPermission(adminId, productId) {
     try {
       const diner = await this.productsRepository.getDinerByAdminId(adminId);

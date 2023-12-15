@@ -62,6 +62,29 @@ export class ProductsController {
     }
   };
 
+  // 특정 식당의 메뉴 조회
+  getProductsByDiner = async (req, res, next) => {
+    try {
+      const dinerId = +req.params.dinerId;
+      const dinerExists = await this.productsService.checkDinerExists(dinerId);
+      if (!dinerExists) {
+        // 식당이 없을 경우
+        res.status(404).json({ message: '해당 식당이 존재하지 않습니다.' });
+        return;
+      }
+
+      const diner = await this.productsService.getProductsByDiner(dinerId);
+      if (!diner || diner.length === 0) {
+        // 식당 정보가 없을 경우
+        res.status(404).json({ message: '해당 식당의 메뉴가 없습니다.' });
+        return;
+      }
+      res.json({ diner });
+    } catch (e) {
+      next(e);
+    }
+  };
+
   //메뉴 수정
   updateProduct = async (req, res, next) => {
     const productId = parseInt(req.params.productId);

@@ -11,6 +11,9 @@ router.post('/', authAdminMiddleware, productsController.createProduct);
 //메뉴 조회
 router.get('/', productsController.getProducts);
 
+//식당 메뉴조회
+router.get('/diner/:dinerId', productsController.getProductsByDiner);
+
 //특정 메뉴조회
 router.get('/:productId', productsController.getProduct);
 

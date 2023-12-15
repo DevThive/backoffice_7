@@ -61,12 +61,28 @@ export class ProductsRepository {
       where: { productId },
     });
 
-  getDiner = async (adminId) => {
+  // 특정 식당의 메뉴 조회
+  getProductsByDiner = async (dinerId) => {
     try {
-      const diner = await prisma.diners.findFirst({
-        where: { adminId },
+      const products = await prisma.products.findMany({
+        where: { dinerId },
       });
-      return diner;
+      return products;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 식당 dinerId가 존재하나 확인
+  checkDinerExists = async (dinerId) => {
+    try {
+      const diner = await prisma.diners.findUnique({
+        where: {
+          dinerId: dinerId,
+        },
+      });
+
+      return !!diner;
     } catch (error) {
       throw error;
     }
@@ -112,7 +128,7 @@ export class ProductsRepository {
     title,
     description,
     price,
-    imageUrl, // 클라이언트에서 전달한 imageUrl 값이 여기에 정상적으로 전달되는지 확인해보세요.
+    imageUrl,
     adminId,
   ) => {
     try {
