@@ -2,6 +2,7 @@ import express from 'express';
 import router from './routes/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cookieParser from 'cookie-parser';
 
 import LogMiddleware from './middlewares/log.middleware.js';
 import ErrorHandlingMiddlewqare from './middlewares/error-handling.js';
@@ -13,6 +14,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use('/frontend', express.static(__dirname + '/src/frontend'));
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
