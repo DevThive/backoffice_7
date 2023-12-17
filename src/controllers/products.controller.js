@@ -116,6 +116,7 @@ export class ProductsController {
   deleteProduct = async (req, res, next) => {
     const adminId = res.locals.admin.adminId;
     const productId = parseInt(req.params.productId);
+    console.log(adminId, productId);
     await this.productsService.deleteProduct(productId, adminId);
     res.status(200).json({ message: '삭제완료.' });
   };
