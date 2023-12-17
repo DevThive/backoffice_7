@@ -1,9 +1,9 @@
 import { OrdersService } from '../services/orders.service.js';
-import { ProductsService } from '../services/products.service.js'
+import { ProductsService } from '../services/products.service.js';
 
 export class OrdersController {
   ordersService = new OrdersService();
-  productsService = new ProductsService()
+  productsService = new ProductsService();
 
   // 식당별 주문 조회
   getOrdersByDiner = async (req, res) => {
@@ -34,7 +34,7 @@ export class OrdersController {
 
   // 주문 완료 처리
   updateOrder = async (req, res) => {
-    const { adminId } = res.locals.user;
+    const { adminId } = res.locals.admin;
     const { dinerId } = res.locals.diner;
     if (
       adminId !== res.locals.diner.adminId ||
@@ -43,9 +43,15 @@ export class OrdersController {
       return res.status(401).json({ message: '권한이 없습니다.' });
     if (res.locals.order.status !== 'ORDERED')
       return res.status(400).json({ message: '이미 배달 완료된 주문입니다.' });
-    const product = await this.getProduct(res.locals.order.productId)
-    const point = res.locals.order.amount*product.price
-    await this.ordersService.updateOrder(res.locals.order.orderId,adminId,point);
+    const product = await this.productsService.getProduct(
+      res.locals.order.productId,
+    );
+    const point = res.locals.order.amount * product.price;
+    await this.ordersService.updateOrder(
+      res.locals.order.orderId,
+      adminId,
+      point,
+    );
     res.json({ message: '배달이 완료되었습니다.' });
   };
 }
