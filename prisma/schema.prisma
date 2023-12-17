@@ -8,115 +8,108 @@ datasource db {
 }
 
 model Users {
-    userId Int @id @default(autoincrement()) @map("userId")
-    email String @unique @map("email")
-    password String @map("password")
-    nickname String @unique @map("nickname")
-    address String @map("address")
-    phoneNumber String @map("phoneNumber")
-    type String @default("USER") @map("type")
-    point Int @default(1000000) @map("point") 
-
-
-    createdAt DateTime @default(now()) @map("createdAt")
-    updatedAt DateTime @updatedAt @map("updatedAt")
-	Orders Orders[]
-    @@map("Users")
+  userId      Int @id @default(autoincrement()) @map("userId")
+  email       String @unique @map("email")
+  password    String @map("password")
+  nickname    String @unique @map("nickname")
+  address     String @map("address")
+  phoneNumber String @map("phoneNumber")
+  type        String @default("USER") @map("type")
+  point       Int @default(1000000) @map("point") 
+  createdAt   DateTime @default(now()) @map("createdAt")
+  updatedAt   DateTime @updatedAt @map("updatedAt")
+  Orders      Orders[]
+  Reviews     Reviews[]
+  @@map("Users")
 }
 
 model Reviews {
-  reviewId Int @id @default(autoincrement()) @map("reviewId")
-  rating Int @map("rating")
-  userId Int @map("userId")
-  //MenuId Int @map("menuId")
-  //AdminId Int @map("adminId")
-  content String @map("content")
-
-  createdAt DateTime @default(now()) @map("createdAt")
-  updatedAt DateTime @updatedAt @map("updatedAt")
-
-  User Users @relation(fields: [UserId], references: [userId], onDelete: Cascade)
-  //Admin Admins @relation(fields: [AdminId], references: [adminId])
-  //Menu Menus @relation(fields: [MenuId], references: [menuId])
-
-
-@@map("Reviews")
+  reviewId   Int @id @default(autoincrement()) @map("reviewId")
+  rating     Int @map("rating")
+  userId     Int @map("userId")
+  productId  Int @map("productId")
+  adminId    Int @map("adminId")
+  content    String @map("content")
+  createdAt  DateTime @default(now()) @map("createdAt")
+  updatedAt  DateTime @updatedAt @map("updatedAt")
+  User       Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  Admin      Admin @relation(fields: [adminId], references: [adminId])
+  Product    Products @relation(fields: [productId], references: [productId])  
+  @@map("Reviews")
 }
 
-//Model admins에 추가 reviews Reviews[]
-//Model menu에 추가 reviews Reviews[]
-
 model Admin {
-  adminId Int @id @default(autoincrement()) @map("adminId")
-  email String @unique @map("email")
-  password String @map("password")
-  nickname String @unique @map("nickname")
-  address String @map("address")
+  adminId   Int @id @default(autoincrement()) @map("adminId")
+  email     String @unique @map("email")
+  password  String @map("password")
+  nickname  String @unique @map("nickname")
+  address   String @map("address")
   marketNum String @map("marketNum")
-  type String @default("ADMIN") @map("type")
-  point Int @default(0) @map("point")
-
+  type      String @default("ADMIN") @map("type")
+  point     Int @default(0) @map("point")
   createdAt DateTime @default(now()) @map("createdAt")
   updatedAt DateTime @updatedAt @map("updatedAt")
-  Diner Diners?
+  Reviews   Reviews[]
+  Diner     Diners?
   @@map("Admin")
 }
 
 model Diners {
-	dinerId Int @id @default(autoincrement())
-	adminId Int @unique
-	name String
-	type String?
-	address String
-	phoneNumber String
-	introduction String @db.Text
-	homepage String?
-	createdAt DateTime @default(now()) @map("createdAt")
-    updatedAt DateTime @updatedAt @map("updatedAt")
-	BusinessHours BusinessHours[]
-  Products Products[]
-  Orders Orders[]
-	Admin1 Admin @relation(fields:[adminId],references:[adminId], onDelete:Cascade)
-    @@map("Diners")
+  dinerId      Int @id @default(autoincrement())  @map("dinerId")
+  adminId     Int @unique @map("adminId")
+  name        String @map("name")
+  type        String? @map("type")
+  address     String @map("address")
+  phoneNumber String @map("phoneNumber")
+  introduction String @db.Text @map("introduction")
+  homepage    String? @map("homepage")
+  createdAt   DateTime @default(now()) @map("createdAt")
+  updatedAt   DateTime @updatedAt @map("updatedAt")
+  BusinessHours BusinessHours[]
+  Products     Products[]
+  Orders       Orders[]
+  Admin1       Admin @relation(fields:[adminId],references:[adminId], onDelete:Cascade)
+  @@map("Diners")
 }
 
 model BusinessHours {
-	dinerId Int
-	dayOfWeek Int @db.TinyInt
-	openTime Int
-	closeTime Int
-	Diner Diners @relation(fields:[dinerId], references:[dinerId], onDelete:Cascade)
-	@@id([dinerId, dayOfWeek])
-	@@map("BusinessHours")
+  dinerId   Int @map("dinerId") 
+  dayOfWeek Int @db.TinyInt @map("dayOfWeek")
+  openTime  Int @map("openTime")
+  closeTime Int @map("closeTime")
+  Diner     Diners @relation(fields:[dinerId], references:[dinerId], onDelete:Cascade)
+  @@id([dinerId, dayOfWeek])
+  @@map("BusinessHours")
 }
 
-
 model Products {
-  dinerId   Int      @map("dinerId")
-  adminId   Int      @map("adminId")
-  productId Int      @id @default(autoincrement()) @map("productId")
-  title     String   @map("title")
+  dinerId    Int @map("dinerId")
+  adminId    Int @map("adminId")
+  productId  Int  @id @default(autoincrement()) @map("productId")
+  title      String @map("title")
   description String @map("description")
-  price     String   @map("price")
-  status    String   @default("FOR_SALE")
-  imageUrl  String   @map("imageUrl")
-  createdAt DateTime  @default(now()) @map("createdAt")
-  updatedAt DateTime? @updatedAt
-  Orders Orders[]
-  Diner     Diners   @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
+  price      String @map("price")
+  status     String @default("FOR_SALE")
+  imageUrl   String @map("imageUrl")
+  createdAt  DateTime @default(now()) @map("createdAt")
+  updatedAt  DateTime? @updatedAt
+  Orders     Orders[]
+  Reviews    Reviews[]
+  Diner      Diners @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
+  @@map("Products")
 }
 
 model Orders {
-	orderId Int @id @default(autoincrement())
-	amount Int
-	dinerId Int
-	userId Int
-	productId Int
-	status String
-	createdAt DateTime  @default(now()) @map("createdAt")
-	updatedAt DateTime? @updatedAt
-	Diner     Diners   @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
-	User Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
-	Product Products @relation(fields: [productId], references: [productId], onDelete: Cascade)
-	@@map("Orders")
+  orderId   Int @id @default(autoincrement())  @map("orderId")
+  amount    Int @map("amount")
+  dinerId   Int @map("dinerId")
+  userId    Int @map("userId")
+  productId Int @map("productId")
+  status    String @map("status")
+  createdAt DateTime @default(now()) @map("createdAt")
+  updatedAt DateTime? @updatedAt
+  Diner     Diners @relation(fields: [dinerId], references: [dinerId], onDelete: Cascade)
+  User      Users @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  Product   Products @relation(fields: [productId], references: [productId], onDelete: Cascade)
+  @@map("Orders")
 }
