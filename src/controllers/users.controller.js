@@ -136,4 +136,24 @@ export class UsersController {
       next(err);
     }
   };
+
+  userEdit = async (req, res, next) => {
+    try {
+      const { userId } = res.locals.user;
+      const { nickname, address, phoneNumber } = req.body;
+
+      const editUser = await this.usersService.editUser(
+        userId,
+        nickname,
+        address,
+        phoneNumber,
+      );
+
+      return res
+        .status(200)
+        .json({ message: '(사용자) 수정이 완료되었습니다.', data: editUser });
+    } catch (err) {
+      next(err);
+    }
+  };
 }
