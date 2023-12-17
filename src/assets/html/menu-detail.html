@@ -77,9 +77,26 @@
     </div> -->
 
     <!-- 메뉴 표시 섹션 -->
-    <div class="menu-container">
+    <div style="margin-top: 80px" class="menu-container container">
       <h2>메뉴</h2>
-      <div id="menuContainer"></div>
+      <div id="menuContainer">
+        <div class="product-details">
+          <img src="" alt="product Image" id="productImage" />
+          <h2 id="productName"></h2>
+          <p id="productPrice"></p>
+          <p id="productDescription"></p>
+          <p id="productTitle"></p>
+          <!-- 추가 -->
+          <p id="productImage"></p>
+          <!-- 추가 -->
+          <p id="productPrice"></p>
+          <!-- 추가 -->
+          <p id="productDescription"></p>
+          <!-- 추가 -->
+
+          <button type="button" onclick="goBack()">뒤로 가기</button>
+        </div>
+      </div>
     </div>
 
     <!-- 리뷰를 표시하는 부분 추가 -->
@@ -146,6 +163,49 @@
         }
         await showDiner(dinerId);
       });
+    </script>
+
+    <script>
+      // 페이지 로딩 시 메뉴 정보를 가져와서 보여주는 함수
+      async function loadProductDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('productId');
+
+        try {
+          const response = await axios.get(
+            server + `/api/products/${productId}`,
+          );
+          const product = response.data.product;
+
+          // 가져온 메뉴 정보를 페이지에 적용
+          document.getElementById('productImage').src = product.imageUrl;
+          document.getElementById('productName').innerText = product.title;
+          document.getElementById(
+            'productPrice',
+          ).innerText = `가격: ${product.price}원`;
+          document.getElementById(
+            'productDescription',
+          ).innerText = `설명: ${product.description}`;
+          document.getElementById('productTitle').innerText = product.title; // 추가
+          document.getElementById('productImage').innerText = product.imageUrl; // 추가
+          document.getElementById(
+            'productPrice',
+          ).innerText = `가격: ${product.price}원`; // 추가
+          document.getElementById(
+            'productDescription',
+          ).innerText = `설명: ${product.description}`; // 추가
+        } catch (error) {
+          console.error('메뉴 정보를 불러오는 중 오류 발생:', error.message);
+        }
+      }
+
+      // "뒤로 가기" 버튼 클릭 시 이전 페이지로 이동
+      function goBack() {
+        window.location.replace('/');
+      }
+
+      // 페이지 로딩 시 메뉴 정보를 가져와서 보여줌
+      document.addEventListener('DOMContentLoaded', loadProductDetails);
     </script>
 
     <script>
