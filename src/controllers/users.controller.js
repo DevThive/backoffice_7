@@ -75,7 +75,7 @@ export class UsersController {
       const userLogin = await this.usersService.userLogin(email, password);
 
       res.cookie('Authorization', 'Bearer ' + userLogin);
-      //res.header('Authorization', `Bearer ${userLogin}`);
+      res.header('Authorization', `Bearer ${userLogin}`);
       return res.status(200).json({
         message: '사용자 로그인입니다.',
         token: `Bearer ${userLogin}`,
@@ -91,6 +91,7 @@ export class UsersController {
 
       const adminLogin = await this.usersService.adminLogin(email, password);
 
+      res.cookie('Authorization', 'Bearer ' + adminLogin);
       res.header('Authorization', `Bearer ${adminLogin}`);
       return res.status(200).json({
         message: '사장님 로그인입니다.',

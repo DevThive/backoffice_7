@@ -26,7 +26,7 @@ export class DinersController {
   // 식당 등록
   createDiner = async (req, res, next) => {
     try {
-      const { type: userType, adminId } = res.locals.user;
+      const { type: userType, adminId } = res.locals.admin;
       if (userType !== 'ADMIN')
         return res.status(401).json({ message: '권한이 없습니다.' });
       const {
@@ -103,6 +103,20 @@ export class DinersController {
     res.locals.diner = diner;
     next();
   };
+  
+  // 사장이 이미 가진 식당이 있는지 검색
+  adminHasDiner = async (req, res) => {
+	  const adminId = +req.params.adminId
+	  if (isNaN(adminId))
+		  return res
+			.status(400)
+			.json({ message: '잘못된 요청입니다.' })
+	const diner = await this.dinersService.getDiner({ adminId })
+	if(diner) return res
+			.status(400)
+			.json({ message: '이미 등록하신 식당이 있습니다.' })
+	res.json({message: '식당을 등록하실 수 있습니다.'})
+  }
 
   // 특정 식당 조회
   getDiner = async (req, res) => res.json({ diner: res.locals.diner });
@@ -110,7 +124,7 @@ export class DinersController {
   // 식당 정보 수정
   updateDiner = async (req, res, next) => {
     try {
-      const { type: userType, adminId } = res.locals.user;
+      const { type: userType, adminId } = res.locals.admin;
       if (userType !== 'ADMIN' || adminId !== res.locals.diner.adminId)
         return res.status(401).json({ message: '권한이 없습니다.' });
       const {
@@ -157,7 +171,7 @@ export class DinersController {
   // 식당 삭제
   deleteDiner = async (req, res, next) => {
     // 인증 수정
-    const { type: userType, adminId } = res.locals.user;
+    const { type: userType, adminId } = res.locals.admin;
     if (userType !== 'ADMIN' || adminId !== res.locals.diner.adminId)
       return res.status(401).json({ message: '권한이 없습니다.' });
     await this.dinersService.deleteDiner(res.locals.diner.dinerId);

@@ -89,7 +89,7 @@ async function submitDiner(dinerId = null) {
       );
       alert('매장이 등록되었습니다.');
     }
-    location.href = 'index.html';
+    window.location.replace('/admin.html');
   } catch (e) {
     console.log(e);
     alert(
@@ -100,14 +100,14 @@ async function submitDiner(dinerId = null) {
   }
 }
 
-async function getDiner(dinerId,adminId) {
+async function getDiner(dinerId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
-	if(adminId !== diner.adminId){
-			alert("권한이 없습니다.")
-			location.href = "index.html"
-		}
+    if (adminId !== diner.adminId) {
+      alert('권한이 없습니다.');
+      location.href = 'index.html';
+    }
     $('#name').val(diner.name);
     $('#type').val(diner.type);
     $('#address').val(diner.address);
@@ -127,7 +127,7 @@ async function getDiner(dinerId,adminId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    location.href = 'index.html';
+    window.location.replace('/admin.html');
   }
 }
 
@@ -181,24 +181,46 @@ async function getDiners(diners = null) {
     }
     $('#diners').empty();
     diners.forEach((diner) => {
-      const dinerList = $(`<li>
-		  <div class="diner-info">
-			매장명: ${diner.name}
-		  </div>
-		  <div>
-			매장 분류: ${diner.type || '-'}
-		  </div>
-		  <div>
-			매장 주소: ${diner.address}
-		  </div>
-		  <div>
-			매장 전화번호: ${diner.phoneNumber}
-		  </div>
-		</li>`);
+      const dinerList = $(`<div class="col">
+      <div class="card shadow-sm">
+        <svg
+          class="bd-placeholder-img card-img-top"
+          width="100%"
+          height="180"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Placeholder: Thumbnail"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+        >
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#55595c"></rect>
+          <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+        </svg>
+        <div class="card-body">
+          <h4>${diner.name}</h4>
+          <p class="card-text">${diner.type || '-'}</p>
+         
+          <p class="card-text">
+          소개 : ${diner.introduction}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary"
+              >
+                들어가기
+              </button>
+            </div>
+            <small class="text-body-secondary">좋아요 1</small>
+          </div>
+        </div>
+      </div>
+    </div>`);
       dinerList.click(function (e) {
         const toDetail = confirm('식당 상세 정보 페이지로 이동합니다.');
         if (toDetail)
-          location.href = `diner-detail.html?dinerId=${diner.dinerId}`;
+          location.href = `/html/diner-detail.html?dinerId=${diner.dinerId}`;
       });
       $('#diners').append(dinerList);
     });
@@ -226,20 +248,5 @@ async function searchDiners() {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-  }
-}
-
-async function adminHasDiner(adminId){
-	try {
-    const diner = await axios.get(server + `/api/diners/admin/${adminId}`);
-	return diner.status!==200
-  } catch (e) {
-    console.log(e);
-    alert(
-      e.response?.data?.message ||
-        e.response?.data?.errorMessage ||
-        '오류가 발생했습니다.',
-    );
-	location.href = "index.html"
   }
 }
