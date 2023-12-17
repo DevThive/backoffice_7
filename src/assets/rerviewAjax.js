@@ -38,6 +38,11 @@ function fetchReviewDetail(dinerId, reviewId, callback) {
 
 // 리뷰 등록
 function submitReview(dinerId, rating, content, callback) {
+  if (!rating || !content) {
+    alert('별점과 리뷰 내용을 입력하세요.');
+    return;
+  }
+
   $.ajax({
     type: 'POST',
     url: `/api/review/${dinerId}/reviews`,
@@ -63,6 +68,11 @@ function submitReview(dinerId, rating, content, callback) {
 
 // 리뷰 수정
 function updateReview(dinerId, reviewId, rating, content, callback) {
+  if (!rating || !content) {
+    alert('별점과 리뷰 내용을 입력하세요.');
+    return;
+  }
+
   $.ajax({
     type: 'PUT',
     url: `/api/review/${dinerId}/reviews/${reviewId}`,
