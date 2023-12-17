@@ -229,7 +229,7 @@
     ></script>
 
     <script src="/api.js"></script>
-
+	<script src="/../js/main.js"></script>
     <script>
       if (localStorage.getItem('token') === null) {
         console.log(localStorage.getItem('token'));
@@ -239,23 +239,7 @@
         });
       }
       // 유저 정보 불러오기
-      const emailVal = document.querySelector('#emailProfile');
-
-      async function getUserInfo() {
-        const json = await await fetch('/user/me');
-      }
-
-      function customAlert(text) {
-        $('#alertText').text(text);
-        $('#alertModal').modal('show');
-      }
-    </script>
-
-    <script>
-      function remove() {
-        window.localStorage.removeItem('token');
-        window.location.replace('/');
-      }
+      const emailVal = document.querySelector('#emailProfile');    
     </script>
   </body>
 </html>
