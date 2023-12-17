@@ -1,388 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link
-      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
-    <title></title>
-    <style>
-      /* CSS styles */
-      .jumbotron {
-        border-radius: 0;
-      }
-      .input-group-text {
-        border-right-color: white;
-        background-color: white;
-      }
-      .input-group > input {
-        border-left-color: white;
-      }
-      body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-      }
-      .container {
-        max-width: 600px;
-        margin: 80px auto 10px;
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      h1,
-      h2 {
-        text-align: center;
-      }
-      .info {
-        margin-bottom: 15px;
-      }
-      .info label {
-        font-weight: bold;
-      }
-      .business-hours {
-        margin-top: 20px;
-      }
-      .business-hours table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-      }
-      .business-hours th,
-      .business-hours td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-      }
-      .business-hours th {
-        background-color: #f2f2f2;
-      }
-      .menu-container {
-        margin-top: 20px; /* 변경점: 메뉴와 리뷰 간격 조절 */
-      }
-      .menu-box {
-        /* 변경점: 메뉴 스타일 추가 */
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-      }
-      .menu-box table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .menu-box th,
-      .menu-box td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-      }
-      .menu-box th {
-        background-color: #f2f2f2;
-      }
-      .menu-reviews {
-        /* 변경점: 메뉴별 리뷰 스타일 추가 */
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-      }
-      .menu-reviews h3 {
-        margin-bottom: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1 id="name"></h1>
-      <div class="info">
-        <label>분류:</label> <span id="type"></span><br />
-        <label>주소:</label> <span id="address"></span><br />
-        <label>전화번호:</label> <span id="phoneNumber"></span><br />
-        <label>소개:</label> <span id="introduction"></span><br />
-        <label>홈페이지:</label> <span id="homepage"></span>
+   <head>
+      <meta charset="UTF-8">
+      <meta
+         name="viewport"
+         content="width=device-width, initial-scale=1, shrink-to-fit=no"
+         />
+      <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+      <link
+         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+         rel="stylesheet"
+         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+         crossorigin="anonymous"
+         />
+      <link
+         href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+         rel="stylesheet"
+         />
+      <title></title>
+      <style>
+         /* CSS styles */
+         .jumbotron {
+         border-radius: 0;
+         }
+         .input-group-text {
+         border-right-color: white;
+         background-color: white;
+         }
+         .input-group > input {
+         border-left-color: white;
+         }
+         body {
+         font-family: Arial, sans-serif;
+         margin: 20px;
+         }
+         .container {
+         max-width: 600px;
+         margin: 80px auto 10px;
+         background-color: #f9f9f9;
+         padding: 20px;
+         border-radius: 8px;
+         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+         }
+         h1, h2 {
+         text-align: center;
+         }
+         .info {
+         margin-bottom: 15px;
+         }
+         .info label {
+         font-weight: bold;
+         }
+         .business-hours {
+         margin-top: 20px;
+         }
+         .business-hours table {
+         width: 100%;
+         border-collapse: collapse;
+         margin-top: 10px;
+         }
+         .business-hours th, .business-hours td {
+         border: 1px solid #ddd;
+         padding: 8px;
+         text-align: center;
+         }
+         .business-hours th {
+         background-color: #f2f2f2;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <h1 id="name"></h1>
+         <div class="info">
+            <label>분류:</label> <span id="type"></span><br>
+            <label>주소:</label> <span id="address"></span><br>
+            <label>전화번호:</label> <span id="phoneNumber"></span><br>
+            <label>소개:</label> <span id="introduction"></span><br>
+            <label>홈페이지:</label> <span id="homepage"></span>
+         </div>
+         <div class="business-hours">
+            <h2>영업 시간</h2>
+            <table id="businessHours">
+               <tr>
+                  <th>요일</th>
+                  <th>영업 시작</th>
+                  <th>영업 종료</th>
+               </tr>
+            </table>
+         </div>
       </div>
-      <div class="business-hours">
-        <h2>영업 시간</h2>
-        <table id="businessHours">
-          <tr>
-            <th>요일</th>
-            <th>영업 시작</th>
-            <th>영업 종료</th>
-          </tr>
-        </table>
-      </div>
-
-      <!-- 메뉴 표시 섹션 -->
-      <div class="menu-container">
-        <h2>메뉴</h2>
-        <div id="menuContainer"></div>
-      </div>
-
-      <!-- 리뷰를 표시하는 부분 추가 -->
-      <div class="review-container">
-        <h2>리뷰</h2>
-        <div class="reviews-list" id="reviewsList"></div>
-      </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../js/constant.js"></script>
-    <script src="../js/check-token.js"></script>
-    <script src="../js/diner.js"></script>
-    <script src="../../assets/reviews.js"></script>
-    <script src="../../assets/rerviewAjax.js"></script>
-    <script>
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const dinerId = +urlParams.get('dinerId');
-      if (isNaN(dinerId)) {
-        alert('해당 매장이 존재하지 않습니다.');
-        location.href = 'index.html';
-      }
-      $(document).ready(async () => {
-        const user = await checkUser();
-        if (user) {
-          $('body').prepend(
-            $(`<header data-bs-theme="dark">
-                  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <div class="container-fluid">
-               
-                      <a class="navbar-brand" href="#">User Page</a>
-               
-                      <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse"
-                        aria-controls="navbarCollapse"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                      >
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                          </li>
-                        </ul>
-               
-               
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script src="../js/constant.js"></script>
+      <script src="../js/check-token.js"></script>
+      <script src="../js/diner.js"></script>
+      <script>
+         const queryString = window.location.search;
+         const urlParams = new URLSearchParams(queryString);
+         const dinerId = +urlParams.get("dinerId");
+         if(isNaN(dinerId)){
+         	alert("해당 매장이 존재하지 않습니다.")
+         	location.href = "index.html"
+         }
+         $(document).ready(async () => {
+         	const user = await checkUser()
+                 	if(user){
+                 		$('body').prepend($(`<header data-bs-theme="dark">
+                    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                      <div class="container-fluid">
+                 
+                        <a class="navbar-brand" href="#">User Page</a>
+                 
                         <button
-                          style="margin: 3px"
-                          class="btn btn-outline-light"
+                          class="navbar-toggler"
                           type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#profileModal"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#navbarCollapse"
+                          aria-controls="navbarCollapse"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
                         >
-                          Profile
+                          <span class="navbar-toggler-icon"></span>
                         </button>
-               
-                        <button
-                          onclick="remove()"
-                          class="btn btn-outline-light"
-                          type="button"
-                        >
-                          Logout
-                        </button>
-               
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
+                          </ul>
+                 
+                 
+                          <button
+                            style="margin: 3px"
+                            class="btn btn-outline-light"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#profileModal"
+                          >
+                            Profile
+                          </button>
+                 
+                          <button
+                            onclick="remove()"
+                            class="btn btn-outline-light"
+                            type="button"
+                          >
+                            Logout
+                          </button>
+                 
+                        </div>
                       </div>
-                    </div>
-                  </nav>
-                </header>`),
-          );
-        } else {
-          const admin = await checkAdmin();
-          if (admin) {
-            $('body').prepend(
-              $(`<header data-bs-theme="dark">
-                  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <div class="container-fluid">
-                      <a class="navbar-brand" href="#">Admin Page</a>
-                      <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse"
-                        aria-controls="navbarCollapse"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                      >
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                          </li>
-                        </ul>
-               
+                    </nav>
+                  </header>`))
+                 	}
+                 	else{
+                 		const admin = await checkAdmin()
+                 		if(admin){
+                 			$('body').prepend($(`<header data-bs-theme="dark">
+                    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                      <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Admin Page</a>
                         <button
-                          style="margin: 3px"
-                          class="btn btn-outline-light"
+                          class="navbar-toggler"
                           type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#profileModal"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#navbarCollapse"
+                          aria-controls="navbarCollapse"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
                         >
-                          Profile
+                          <span class="navbar-toggler-icon"></span>
                         </button>
-               
-                        <button
-                          onclick="remove()"
-                          class="btn btn-outline-light"
-                          type="button"
-                        >
-                          Logout
-                        </button>
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
+                          </ul>
+                 
+                          <button
+                            style="margin: 3px"
+                            class="btn btn-outline-light"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#profileModal"
+                          >
+                            Profile
+                          </button>
+                 
+                          <button
+                            onclick="remove()"
+                            class="btn btn-outline-light"
+                            type="button"
+                          >
+                            Logout
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </nav>
-                </header>`),
-            );
-          } else {
-            $('body').prepend(
-              $(`<header data-bs-theme="dark">
-                  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-                    <div class="container-fluid">
-               
-                      <a class="navbar-brand" href="#">Food Web</a>
-               
-                      <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarCollapse"
-                        aria-controls="navbarCollapse"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                      >
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                          <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                          </li>
-                        </ul>
-               
-               
+                    </nav>
+                  </header>`))
+                 		}
+                 		else{
+                 			$('body').prepend($(`<header data-bs-theme="dark">
+                    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                      <div class="container-fluid">
+                 
+                        <a class="navbar-brand" href="#">Food Web</a>
+                 
                         <button
-                          style="margin: 3px"
+                          class="navbar-toggler"
                           type="button"
-                          class="btn btn-outline-light"
-                          data-bs-toggle="modal"
-                          data-bs-target="#loginModal"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#navbarCollapse"
+                          aria-controls="navbarCollapse"
+                          aria-expanded="false"
+                          aria-label="Toggle navigation"
                         >
-                          Sign In
+                          <span class="navbar-toggler-icon"></span>
                         </button>
-                        <button
-                          class="btn btn-outline-light"
-                          type="button"
-                          data-bs-toggle="modal"
-                          data-bs-target="#signupModal"
-                        >
-                          Sign Up
-                        </button>
-               
+                        <div class="collapse navbar-collapse" id="navbarCollapse">
+                          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            </li>
+                          </ul>
+                 
+                 
+                          <button
+                            style="margin: 3px"
+                            type="button"
+                            class="btn btn-outline-light"
+                            data-bs-toggle="modal"
+                            data-bs-target="#loginModal"
+                          >
+                            Sign In
+                          </button>
+                          <button
+                            class="btn btn-outline-light"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#signupModal"
+                          >
+                            Sign Up
+                          </button>
+                 
+                        </div>
                       </div>
-                    </div>
-                  </nav>
-                </header>`),
-            );
-          }
-        }
-        await showDiner(dinerId);
-      });
-    </script>
-    <script>
-      // 변경점: 각 메뉴별 리뷰 표시 함수 추가
-      async function showDiner(dinerId) {
-        const menuList = await getMenuList(dinerId);
-        displayMenu(menuList);
-
-        for (const menu of menuList) {
-          const menuReviewList = await getReviewListByMenu(dinerId, menu.id);
-          displayMenuReviews(menu.id, menuReviewList);
-        }
-
-        const reviewList = await getReviewList(dinerId);
-        displayReviews(reviewList);
-      }
-
-      // 변경점: 메뉴 표시 함수 추가
-      function displayMenu(menuList) {
-        const menuContainer = $('#menuContainer');
-
-        if (menuList.length === 0) {
-          menuContainer.html('<p>메뉴 정보가 없습니다.</p>');
-          return;
-        }
-
-        const menuBox = $('<div class="menu-box"></div>');
-        const menuTable = $('<table class="table"></table>');
-        menuTable.append('<tr><th>메뉴명</th><th>가격</th></tr>');
-
-        menuList.forEach((menu) => {
-          menuTable.append(
-            `<tr><td>${menu.name}</td><td>${menu.price}원</td></tr>`,
-          );
-        });
-
-        menuBox.append(menuTable);
-        menuContainer.html(menuBox);
-      }
-
-      // 변경점: 각 메뉴별 리뷰 표시 함수 추가
-      function displayMenuReviews(menuId, reviewList) {
-        const menuReviewsContainer = $(
-          `<div class="menu-reviews" id="menuReviews_${menuId}"></div>`,
-        );
-        menuReviewsContainer.append(`<h3>${menuId}에 대한 리뷰</h3>`);
-
-        if (reviewList.length === 0) {
-          menuReviewsContainer.append('<p>리뷰가 없습니다.</p>');
-        } else {
-          const reviewsList = $('<ul></ul>');
-          reviewList.forEach((review) => {
-            reviewsList.append(`<li>${review.content}</li>`);
-          });
-          menuReviewsContainer.append(reviewsList);
-        }
-
-        $('.review-container').append(menuReviewsContainer);
-      }
-    </script>
-  </body>
+                    </nav>
+                  </header>`))
+                 		}
+                 	}
+         	await showDiner(dinerId)
+         })
+          
+      </script>
+   </body>
 </html>
