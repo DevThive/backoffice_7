@@ -52,6 +52,7 @@ export function authMiddleware(req, res, next) {
         ...resBody(false, '다시 로그인해주세요'),
       });
     } else {
+      console.log('---------------');
       console.error(error);
       return res.status(500).json({
         ...resBody(false, '다시 로그인해주세요'),
