@@ -178,10 +178,10 @@
           alert('권한이 없습니다.');
           location.href = '/';
         }
-        // if (await adminHasDiner(adminId)) {
-        //   alert('이미 등록하신 식당이 있습니다.');
-        //   location.href = '/admin.html';
-        // }
+        if (await adminHasDiner(adminId)) {
+          alert('이미 등록하신 식당이 있습니다.');
+          location.href = '/admin.html';
+        }
         makeBusinessHourForm();
         $('#diners-form').append('<input type="submit" value="등록">');
         $('#diners-form').on('submit', async function (e) {

@@ -250,3 +250,18 @@ async function searchDiners() {
     );
   }
 }
+
+async function adminHasDiner(adminId) {
+  try {
+    const diner = await axios.get(server + `/api/diners/admin/${adminId}`);
+    return diner.status !== 200;
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+    window.location.replace('/admin.html');
+  }
+}

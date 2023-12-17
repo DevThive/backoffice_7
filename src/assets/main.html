@@ -227,8 +227,21 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="/api.js"></script>
+    <script src="./js/constant.js"></script>
+    <script src="./js/diner.js"></script>
+
+    <script>
+      $(document).ready(async () => {
+        await getDiners();
+        $('#search-form').on('submit', async function (e) {
+          e.preventDefault();
+          await searchDiners();
+        });
+      });
+    </script>
 
     <script>
       if (localStorage.getItem('token') === null) {
