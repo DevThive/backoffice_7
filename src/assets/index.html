@@ -9,6 +9,7 @@
     />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/searchBar.css" />
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -44,6 +45,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Food Web</a>
+
         <button
           class="navbar-toggler"
           type="button"
@@ -91,6 +93,54 @@
   </header>
 
   <body>
+    <!--검색창-->
+    <div class="search">
+      <form id="search-form">
+        <input id="keyword" type="text" placeholder="검색어 입력" />
+        <!-- <img
+        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+      /> -->
+        <button
+          class="btn btn-sm btn-outline-black"
+          id="searchBtn"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+
+    <!-- 이미지 확인 -->
+    <section
+      style="background-color: azure; margin-top: 20px; margin-bottom: 20px"
+      class="py-5 text-center container"
+    >
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Album example</h1>
+          <p class="lead text-body-secondary">
+            Something short and leading about the collection below—its contents,
+            the creator, etc. Make it short and sweet, but not too short so
+            folks don’t simply skip over it entirely.
+          </p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--상점 부분-->
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div
+          id="diners"
+          class="row row-cols-1 row-cols-sm-3 row-cols-md-3 g-3"
+        ></div>
+      </div>
+    </div>
+
     <!-- Login Modal -->
     <div
       class="modal fade"
@@ -500,6 +550,7 @@
             </div>
           </div>
           <!-- <div class="modal-footer">
+
             <button
               type="button"
               class="btn btn-secondary"
@@ -507,6 +558,7 @@
             >
               Close
             </button>
+
             <button type="submit" class="btn btn-primary" onclick="sign_up()">
               Sign up 1
             </button>
@@ -532,7 +584,21 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="/api.js"></script>
+    <script src="./js/constant.js"></script>
+    <script src="./js/diner.js"></script>
+
+    <script>
+      $(document).ready(async () => {
+        await getDiners();
+        $('#search-form').on('submit', async function (e) {
+          e.preventDefault();
+          await searchDiners();
+        });
+      });
+    </script>
 
     <script>
       if (localStorage.getItem('token')) {
@@ -662,13 +728,16 @@
         console.log(email, password);
         $.ajax({
           type: 'POST',
+
           url: 'api/users/auth/user',
+
           data: {
             email: email,
             password: password,
           },
           success: function (response) {
             localStorage.setItem('token', response.token);
+
             console.log(response.token);
             alert('로그인 되었습니다.');
             window.location.replace('/main.html');

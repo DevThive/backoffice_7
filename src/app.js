@@ -2,6 +2,10 @@ import express from 'express';
 import router from './routes/index.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import cookieParser from 'cookie-parser';
 
 import LogMiddleware from './middlewares/log.middleware.js';
@@ -13,7 +17,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT;
 
-app.use('/frontend', express.static(__dirname + '/src/frontend'));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -23,6 +26,7 @@ app.use(LogMiddleware);
 app.use(ErrorHandlingMiddlewqare);
 app.use('/api', router);
 
+app.use('/frontend', express.static(__dirname + '/frontend'));
 app.use('/', express.static(path.join(__dirname, 'assets')));
 app.use(express.static('assets'));
 

@@ -3,49 +3,15 @@ import { OrdersRepository } from '../repositoryies/orders.repository.js';
 export class OrdersService {
   ordersRepository = new OrdersRepository();
 
-  async calculateProductPrice(productId, amount) {
-    return await this.ordersRepository.calculateProductPrice(productId, amount);
-  }
+  // 식당별 주문 조회
+  getOrdersByDiner = async (dinerId) =>
+    await this.ordersRepository.getOrdersByDiner(dinerId);
 
-  async createOrder(user, productId, amount, productPrice) {
-    await this.ordersRepository.createOrder(
-      user,
-      productId,
-      amount,
-      productPrice,
-    );
-  }
+  // 특정 주문 조회
+  getOrderById = async (orderId) =>
+    await this.ordersRepository.getOrderById(orderId);
 
-  async checkDinerExists(dinerId) {
-    try {
-      const dinerExists = await this.ordersRepository.checkDinerExists(dinerId);
-      return !!dinerExists;
-    } catch (e) {
-      throw e;
-    }
-  }
-
-  getProductsByDiner = async (dinerId) => {
-    return await this.ordersRepository.getProductsByDiner(dinerId);
-  };
-
-  async hasPermission(dinerId, productId) {
-    try {
-      const diner = await this.productsRepository.getDinerByDinerId(dinerId);
-      const productWithDiner = await this.ordersRepository.getProductWithDiner(
-        productId,
-        dinerId,
-      );
-
-      console.log(productWithDiner);
-
-      if (!diner || !productWithDiner || !productWithDiner.Diner) {
-        throw new Error('권한이 없습니다.');
-      }
-
-      return diner.adminId === productWithDiner.Diner.adminId;
-    } catch (e) {
-      throw e;
-    }
-  }
+  // 주문 완료 처리
+  updateOrder = async (orderId) =>
+    await this.ordersRepository.updateOrder(orderId);
 }

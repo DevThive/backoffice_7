@@ -1,5 +1,6 @@
 import { UsersService } from '../services/users.service.js';
 import { sendEmail } from '../server/email.js';
+
 import resBody from '../server/resBody.js';
 
 export class UsersController {
@@ -74,7 +75,7 @@ export class UsersController {
       const userLogin = await this.usersService.userLogin(email, password);
 
       res.cookie('Authorization', 'Bearer ' + userLogin);
-      //res.header('Authorization', `Bearer ${userLogin}`);
+      res.header('Authorization', `Bearer ${userLogin}`);
       return res.status(200).json({
         message: '사용자 로그인입니다.',
         token: `Bearer ${userLogin}`,
@@ -90,6 +91,7 @@ export class UsersController {
 
       const adminLogin = await this.usersService.adminLogin(email, password);
 
+      res.cookie('Authorization', 'Bearer ' + adminLogin);
       res.header('Authorization', `Bearer ${adminLogin}`);
       return res.status(200).json({
         message: '사장님 로그인입니다.',
@@ -100,13 +102,26 @@ export class UsersController {
     }
   };
 
-  checkToken = async (req, res, next) => {
+  usercheckToken = async (req, res, next) => {
     try {
-      const { email, nickname } = res.locals.user;
+      const { email, nickname, adminId } = res.locals.user;
 
       return res.status(200).json({
         message: '토큰이 정상적입니다.',
-        data: { email, nickname },
+        data: { email, nickname, adminId },
+      });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  admincheckToken = async (req, res, next) => {
+    try {
+      const { email, nickname, adminId } = res.locals.admin;
+
+      return res.status(200).json({
+        message: '토큰이 정상적입니다.',
+        data: { email, nickname, adminId },
       });
     } catch (err) {
       next(err);

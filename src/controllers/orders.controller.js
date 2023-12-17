@@ -2,53 +2,47 @@ import { OrdersService } from '../services/orders.service.js';
 
 export class OrdersController {
   ordersService = new OrdersService();
-  createOrder = async (req, res, next) => {
-    try {
-      const { productId, amount } = req.body;
-      const { user } = res.locals;
 
-      const productPrice = await this.ordersService.calculateProductPrice(
-        productId,
-        amount,
-      );
-
-      if (!productId || !amount) {
-        res.status(400).json({ message: '메뉴와 수량을 모두 정해주세요.' });
-        return;
-      }
-
-      await this.ordersService.createOrder(
-        user,
-        productId,
-        amount,
-        productPrice,
-      );
-
-      res.status(201).json({ message: '주문이 성공적으로 생성되었습니다.' });
-    } catch (e) {
-      next(e);
-    }
+  // 식당별 주문 조회
+  getOrdersByDiner = async (req, res) => {
+    console.log('ABC');
+    const { adminId } = res.locals.user;
+    if (adminId !== res.locals.diner.adminId)
+      return res.status(401).json({ message: '권한이 없습니다.' });
+    const orders = await this.ordersService.getOrdersByDiner(
+      res.locals.diner.dinerId,
+    );
+    res.json({ orders });
   };
 
-  getProductByDiner = async (req, res, next) => {
-    try {
-      const dinerId = +req.params.dinerId;
-      const dinerExists = await this.ordersService.checkDinerExists(dinerId);
-      if (!dinerExists) {
-        // 식당이 없을 경우
-        res.status(404).json({ message: '해당 식당이 존재하지 않습니다.' });
-        return;
-      }
+  // 특정 주문 찾기
+  findOrder = async (req, res, next) => {
+    const orderId = +req.params.orderId;
+    if (isNaN(orderId))
+      return res
+        .status(404)
+        .json({ message: '해당 주문이 존재하지 않습니다.' });
+    const order = await this.ordersService.getOrderById(orderId);
+    if (!order)
+      return res
+        .status(404)
+        .json({ message: '해당 주문이 존재하지 않습니다.' });
+    res.locals.order = order;
+    next();
+  };
 
-      const products = await this.ordersService.getProductsByDiner(dinerId);
-      if (!products || products.length === 0) {
-        // 식당 정보가 없을 경우
-        res.status(404).json({ message: '해당 식당의 메뉴가 없습니다.' });
-        return;
-      }
-      res.json({ products });
-    } catch (e) {
-      next(e);
-    }
+  // 주문 완료 처리
+  updateOrder = async (req, res) => {
+    const { adminId } = res.locals.user;
+    const { dinerId } = res.locals.diner;
+    if (
+      adminId !== res.locals.diner.adminId ||
+      dinerId !== res.locals.order.dinerId
+    )
+      return res.status(401).json({ message: '권한이 없습니다.' });
+    if (res.locals.order.status !== 'ORDERED')
+      return res.status(400).json({ message: '이미 배달 완료된 주문입니다.' });
+    await this.ordersService.updateOrder(res.locals.order.orderId);
+    res.json({ message: '배달이 완료되었습니다.' });
   };
 }
