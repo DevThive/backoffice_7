@@ -245,7 +245,7 @@
     <script src="./js/check-token.js"></script>
     <script src="./js/header.js"></script>
 
-    <script>
+    <!-- <script>
       if (localStorage.getItem('token') === null) {
         console.log(localStorage.getItem('token'));
         getSelf(function () {
@@ -253,12 +253,12 @@
           window.location.replace('/');
         });
       }
-    </script>
+    </script> -->
     <script>
       const emailVal = document.querySelector('#emailProfile');
       $(document).ready(async () => {
-        const users = await checkUser();
-        const userId = users.userId;
+        const user = await checkUser();
+        const userId = user.userId;
         if (!userId) {
           alert('권한이 없습니다.');
           location.href = '/';
