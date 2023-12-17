@@ -266,3 +266,68 @@ async function adminHasDiner(adminId) {
     return true;
   }
 }
+
+async function showDinerMenu(dinerId) {
+  try {
+    const res = await axios.get(server + `/api/products/diner/${dinerId}`);
+    const products = res.data.products;
+
+    // 메뉴 목록을 표시하는 부분
+    const menuList = $('#menuList');
+    menuList.empty(); // 기존에 있던 내용을 비웁니다.
+
+    if (products.length === 0) {
+      menuList.append('<p>등록된 메뉴가 없습니다.</p>');
+      return;
+    }
+
+    // 각 메뉴를 표시
+    products.forEach((product) => {
+      const menuCard = $(`
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${product.imageUrl}" alt="${product.title}" class="img-fluid rounded-start diner-menu-image" data-product-id="${product.productId}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${product.title}</h5>
+                <p class="card-text">${product.description}</p>
+                <p class="card-text">가격: ${product.price}원</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `);
+
+      menuCard.find('.diner-menu-image').click(function () {
+        viewProductDetail(product.productId);
+      });
+
+      menuList.append(menuCard);
+    });
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+  }
+}
+
+function viewProductDetail(productId) {
+  // 메뉴 상세 페이지로 이동하는 코드 추가
+  location.href = `/html/product-detail.html?productId=${productId}`;
+}
+
+// ...
+
+// loadPage 함수에 showDinerMenu 호출 추가
+async function loadPage() {
+  // ... (기존 코드는 그대로 두고 아래에 메뉴 관련 코드 추가)
+
+  // 메뉴 및 식당 정보 로딩
+  await showDiner(dinerId);
+  await showDinerMenu(dinerId);
+}
