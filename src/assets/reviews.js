@@ -85,25 +85,12 @@ function updateReviewsDisplay() {
 }
 
 function editReview(index) {
-  // 수정 평점을 받기 위해 prompt 대신에 별점 선택 팝업을 사용
-  const editedRating = prompt(
-    '리뷰를 수정하세요 (1에서 5까지의 별점을 선택하세요):',
-    reviewsArray[index].rating,
-  );
-  const editedText = prompt(
-    '리뷰 내용을 수정하세요:',
-    reviewsArray[index].text,
-  );
-
-  // 수정 평점이 유효한 범위인지 확인
-  if (editedRating !== null && editedRating >= 1 && editedRating <= 5) {
-    reviewsArray[index].rating = parseInt(editedRating, 10); // 정수로 변환
+  const editedText = prompt('리뷰를 수정하세요:', reviewsArray[index].text);
+  if (editedText !== null) {
     reviewsArray[index].text = editedText;
-    reviewsArray[index].date = new Date().toLocaleString();
+    reviewsArray[index].date = new Date().toLocaleString(); // 수정 시간 업데이트
     updateReviewsDisplay();
     saveReviewsToLocalStorage();
-  } else if (editedRating !== null) {
-    alert('1에서 5까지의 유효한 별점을 입력하세요.');
   }
 }
 
