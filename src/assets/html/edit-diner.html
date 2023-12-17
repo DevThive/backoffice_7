@@ -140,6 +140,7 @@
         }
         $('body').prepend(adminHeader);
         makeBusinessHourForm();
+		setAdminId(adminId)
         $('#diners-form').append('<input type="submit" value="수정">');
         await getDiner(dinerId, adminId);
         $('#diners-form').on('submit', async function (e) {

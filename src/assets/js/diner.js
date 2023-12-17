@@ -100,13 +100,33 @@ async function submitDiner(dinerId = null) {
   }
 }
 
+async function checkDiner(dinerId, adminId) {
+  try {
+    const res = await axios.get(server + `/api/diners/${dinerId}`);
+    const diner = res.data.diner;
+    if (adminId !== diner.adminId) {
+      alert('권한이 없습니다.');
+      location.href = '../admin.html';
+    }
+	return 1
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+    window.location.replace('../admin.html');
+  }
+}
+
 async function getDiner(dinerId, adminId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
     if (adminId !== diner.adminId) {
       alert('권한이 없습니다.');
-      location.href = 'index.html';
+      location.href = '../admin.html';
     }
     $('#name').val(diner.name);
     $('#type').val(diner.type);
@@ -127,14 +147,14 @@ async function getDiner(dinerId, adminId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    //window.location.replace('/admin.html');
+    window.location.replace('../admin.html');
   }
 }
 
 async function deleteDiner(dinerId) {
   try {
     await axios.delete(server + `/api/diners/${dinerId}`, { headers });
-    location.href = 'index.html';
+    location.href = 'admin.html';
   } catch (e) {
     console.log(e);
     alert(

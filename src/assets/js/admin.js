@@ -42,10 +42,45 @@ function setAdminId(id) {
 
 async function toMyDiner() {
   try {
+	if (!adminId) return alert('등록하신 식당이 없습니다.');
+    const diner = await adminHasDiner(adminId);
+    if (!diner) return alert('등록하신 식당이 없습니다.');
+    console.log(diner);
+    window.location.replace(`/html/diner-detail.html?dinerId=${diner}`);
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+  }
+}
+
+async function toEditMyDiner() {
+  try {
+	if (!adminId) return alert('등록하신 식당이 없습니다.');
     const diner = await adminHasDiner(adminId);
     if (!diner) return alert('등록하신 식당이 없습니다.');
     console.log(diner);
     window.location.replace(`/html/edit-diner.html?dinerId=${diner}`);
+  } catch (e) {
+    console.log(e);
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+  }
+}
+
+async function toCheckMyDiner() {
+  try {
+	if (!adminId) return alert('등록하신 식당이 없습니다.');
+    const diner = await adminHasDiner(adminId);
+    if (!diner) return alert('등록하신 식당이 없습니다.');
+    console.log(diner);
+    window.location.replace(`/html/orders.html?dinerId=${diner}`);
   } catch (e) {
     console.log(e);
     alert(

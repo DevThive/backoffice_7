@@ -48,6 +48,28 @@ const adminHeader = `<header data-bs-theme="dark">
           >
             내 상점
           </button>
+		  
+		  <button
+            style="margin: 3px"
+            class="btn btn-outline-light"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#profileModal"
+			onclick="toCheckMyDiner()"
+          >
+            주문 확인
+          </button>
+		  
+		  <button
+            style="margin: 3px"
+            class="btn btn-outline-light"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#profileModal"
+			onclick="toEditMyDiner()"
+          >
+            내 상점 정보 수정
+          </button>
 
           <button
             onclick="remove()"

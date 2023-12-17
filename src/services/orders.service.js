@@ -12,6 +12,6 @@ export class OrdersService {
     await this.ordersRepository.getOrderById(orderId);
 
   // 주문 완료 처리
-  updateOrder = async (orderId) =>
-    await this.ordersRepository.updateOrder(orderId);
+  updateOrder = async (orderId,adminId,point) =>
+    await this.ordersRepository.updateOrder(orderId,adminId,point);
 }
