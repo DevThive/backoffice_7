@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 // import ProjectRouter from "./project.router.js";
 import UsersRouter from './users.router.js';
 import ReviewsRouter from './reviews.router.js';
@@ -7,6 +8,8 @@ import UserOrdersRouter from './userorders.router.js';
 import ProductsRouter from './products.router.js';
 
 const router = express.Router();
+
+router.use(cors());
 
 // Project
 // router.use("/project/", ProjectRouter);

@@ -6,7 +6,8 @@ export class ProductsController {
   //메뉴 생성하기
   createProduct = async (req, res, next) => {
     try {
-      const adminId = res.locals.user.adminId;
+      const adminId = res.locals.admin.adminId;
+      console.log(res.locals.user);
       const { title, description, price, imageUrl } = req.body;
       if (!title)
         return res.status(400).json({ message: '메뉴 이름을 입력해주세요.' });
@@ -96,7 +97,7 @@ export class ProductsController {
       if (!productId) {
         res.status(404).json({ message: '없는 메뉴입니다.' });
       }
-      const adminId = res.locals.user.adminId;
+      const adminId = res.locals.admin.adminId;
       const updatedProduct = await this.productsService.updateProduct(
         adminId,
         productId,
@@ -113,7 +114,7 @@ export class ProductsController {
 
   //메뉴 삭제
   deleteProduct = async (req, res, next) => {
-    const adminId = res.locals.user.adminId;
+    const adminId = res.locals.admin.adminId;
     const productId = parseInt(req.params.productId);
     await this.productsService.deleteProduct(productId, adminId);
     res.status(200).json({ message: '삭제완료.' });
