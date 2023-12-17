@@ -38,6 +38,10 @@ export class OrdersRepository {
   }
 
   async createOrder(user, productId, amount, dinerId) {
+    const dinerExists = await this.checkDinerExists(dinerId);
+    if (!dinerExists) {
+      throw new Error('해당 식당이 존재하지 않습니다.');
+    }
     const productPrice = await this.calculateProductPrice(productId, amount);
     const product = await prisma.products.findUnique({
       where: { productId },

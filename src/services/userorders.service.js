@@ -7,13 +7,18 @@ export class OrdersService {
     return await this.ordersRepository.calculateProductPrice(productId, amount);
   }
 
-  async createOrder(user, productId, amount, productPrice) {
-    await this.ordersRepository.createOrder(
-      user,
-      productId,
-      amount,
-      productPrice,
-    );
+  async createOrder(user, productId, amount, dinerId, productPrice) {
+    try {
+      await this.ordersRepository.createOrder(
+        user,
+        productId,
+        amount,
+        dinerId,
+        productPrice,
+      );
+    } catch (e) {
+      throw e;
+    }
   }
 
   async checkDinerExists(dinerId) {
@@ -31,7 +36,7 @@ export class OrdersService {
 
   async hasPermission(dinerId, productId) {
     try {
-      const diner = await this.productsRepository.getDinerByDinerId(dinerId);
+      const diner = await this.ordersRepository.getDinerByDinerId(dinerId);
       const productWithDiner = await this.ordersRepository.getProductWithDiner(
         productId,
         dinerId,

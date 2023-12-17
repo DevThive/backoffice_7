@@ -4,6 +4,7 @@ export class OrdersController {
   ordersService = new OrdersService();
   createOrder = async (req, res, next) => {
     try {
+      const dinerId = +req.params.dinerId;
       const { productId, amount } = req.body;
       const { user } = res.locals;
 
@@ -21,6 +22,7 @@ export class OrdersController {
         user,
         productId,
         amount,
+        dinerId,
         productPrice,
       );
 
