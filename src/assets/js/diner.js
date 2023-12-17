@@ -100,7 +100,7 @@ async function submitDiner(dinerId = null) {
   }
 }
 
-async function getDiner(dinerId) {
+async function getDiner(dinerId, adminId) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
@@ -127,7 +127,7 @@ async function getDiner(dinerId) {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
-    window.location.replace('/admin.html');
+    //window.location.replace('/admin.html');
   }
 }
 
@@ -248,5 +248,21 @@ async function searchDiners() {
         e.response?.data?.errorMessage ||
         '오류가 발생했습니다.',
     );
+  }
+}
+
+async function adminHasDiner(adminId) {
+  try {
+    const diner = await axios.get(server + `/api/diners/admin/${adminId}`);
+    return diner.status !== 200;
+  } catch (e) {
+    console.log(e);
+    if (e.response.status === 409) return e.response.data.dinerId || true;
+    alert(
+      e.response?.data?.message ||
+        e.response?.data?.errorMessage ||
+        '오류가 발생했습니다.',
+    );
+    return true;
   }
 }
