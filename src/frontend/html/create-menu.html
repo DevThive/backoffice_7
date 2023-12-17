@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>제품 등록하기</title>
+    <style>
+      /* 간단한 스타일링 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>제품 등록하기</h2>
+
+    <form id="productForm">
+      <label for="productName">제품 이름:</label>
+      <input type="text" id="productName" name="productName" required />
+
+      <label for="productPrice">가격:</label>
+      <input type="text" id="productPrice" name="productPrice" required />
+
+      <label for="productDescription">설명:</label>
+      <textarea
+        id="productDescription"
+        name="productDescription"
+        rows="4"
+        required
+      ></textarea>
+
+      <label for="productImage">이미지 URL:</label>
+      <input type="text" id="productImage" name="productImage" required />
+
+      <button type="button" onclick="createProduct()">제품 생성</button>
+    </form>
+
+    <script>
+      async function createProduct() {
+        const productName = document.getElementById('productName').value;
+        const productPrice = document.getElementById('productPrice').value;
+        const productDescription =
+          document.getElementById('productDescription').value;
+        const productImage = document.getElementById('productImage').value;
+
+        try {
+          const response = await fetch('http://localhost:3000/api/products', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: productName,
+              description: productDescription,
+              price: productPrice,
+              imageUrl: productImage,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log('제품이 성공적으로 생성되었습니다.', result);
+        } catch (error) {
+          console.error('제품 생성 중 오류 발생:', error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
