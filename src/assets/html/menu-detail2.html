@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>메뉴 상세 페이지</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      .product-details {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>메뉴 상세 페이지</h1>
+    </header>
+
+    <div class="product-details">
+      <img src="" alt="product Image" id="productImage" />
+      <h2 id="productName"></h2>
+      <p id="productPrice"></p>
+      <p id="productDescription"></p>
+      <p id="productTitle"></p>
+      <!-- 추가 -->
+      <p id="productImage"></p>
+      <!-- 추가 -->
+      <p id="productPrice"></p>
+      <!-- 추가 -->
+      <p id="productDescription"></p>
+      <!-- 추가 -->
+
+      <button type="button" onclick="goBack()">뒤로 가기</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      // 페이지 로딩 시 메뉴 정보를 가져와서 보여주는 함수
+      async function loadProductDetails() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('productId');
+
+        try {
+          const response = await axios.get(
+            `http://localhost:3000/api/products/${productId}`,
+          );
+          const product = response.data;
+
+          // 가져온 메뉴 정보를 페이지에 적용
+          document.getElementById('productImage').src = product.imageUrl;
+          document.getElementById('productName').innerText = product.title;
+          document.getElementById(
+            'productPrice',
+          ).innerText = `가격: ${product.price}원`;
+          document.getElementById(
+            'productDescription',
+          ).innerText = `설명: ${product.description}`;
+          document.getElementById('productTitle').innerText = product.title; // 추가
+          document.getElementById('productImage').innerText = product.imageUrl; // 추가
+          document.getElementById(
+            'productPrice',
+          ).innerText = `가격: ${product.price}원`; // 추가
+          document.getElementById(
+            'productDescription',
+          ).innerText = `설명: ${product.description}`; // 추가
+        } catch (error) {
+          console.error('메뉴 정보를 불러오는 중 오류 발생:', error.message);
+        }
+      }
+
+      // "뒤로 가기" 버튼 클릭 시 이전 페이지로 이동
+      function goBack() {
+        window.history.back();
+      }
+
+      // 페이지 로딩 시 메뉴 정보를 가져와서 보여줌
+      document.addEventListener('DOMContentLoaded', loadProductDetails);
+    </script>
+  </body>
+</html>
