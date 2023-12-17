@@ -50,33 +50,30 @@
     </style>
   </head>
   <body>
-    <header data-bs-theme="dark">
-      <!-- Navbar code here -->
-    </header>
+    <div class="container" style="margin-top: 80px">
+      <h2>메뉴 등록하기</h2>
 
-    <h2>메뉴 등록하기</h2>
+      <form style="margin-top: 20px" id="menuForm">
+        <label for="productName">메뉴 이름:</label>
+        <input type="text" id="productName" name="productName" required />
 
-    <form style="margin-top: 20px" id="menuForm">
-      <label for="productName">메뉴 이름:</label>
-      <input type="text" id="productName" name="productName" required />
+        <label for="productPrice">가격:</label>
+        <input type="text" id="productPrice" name="productPrice" required />
 
-      <label for="productPrice">가격:</label>
-      <input type="text" id="productPrice" name="productPrice" required />
+        <label for="productDescription">설명:</label>
+        <textarea
+          id="productDescription"
+          name="productDescription"
+          rows="4"
+          required
+        ></textarea>
 
-      <label for="productDescription">설명:</label>
-      <textarea
-        id="productDescription"
-        name="productDescription"
-        rows="4"
-        required
-      ></textarea>
+        <label for="productImage">이미지 URL:</label>
+        <input type="text" id="productImage" name="productImage" required />
 
-      <label for="productImage">이미지 URL:</label>
-      <input type="text" id="productImage" name="productImage" required />
-
-      <button type="button" onclick="createProduct()">메뉴 생성</button>
-    </form>
-
+        <button type="button" onclick="createProduct()">메뉴 생성</button>
+      </form>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script
@@ -84,6 +81,23 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="../api.js"></script>
+    <script src="../js/constant.js"></script>
+    <script src="../js/diner.js"></script>
+    <script src="../js/check-token.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/admin.js"></script>
+
+    <script>
+      if (localStorage.getItem('token') === null) {
+        console.log(localStorage.getItem('token'));
+        admingetSelf(function () {
+          alert('로그인 해주세요');
+          window.location.replace('/');
+        });
+      }
+      $('body').prepend(adminHeader);
+    </script>
 
     <script>
       async function createProduct() {
@@ -94,15 +108,12 @@
         const productImage = document.getElementById('productImage').value;
 
         try {
-          const response = await axios.post(
-            'http://localhost:3000/api/products',
-            {
-              title: productName,
-              price: productPrice,
-              description: productDescription,
-              imageUrl: productImage,
-            },
-          );
+          const response = await axios.post(server + '/api/products', {
+            title: productName,
+            price: productPrice,
+            description: productDescription,
+            imageUrl: productImage,
+          });
 
           console.log('메뉴가 성공적으로 생성되었습니다.', response.data);
         } catch (error) {
