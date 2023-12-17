@@ -101,6 +101,7 @@
         if (isUser) $('body').prepend(userHeader);
         else {
           const isAdmin = await checkAdmin();
+		  if(isAdmin) setAdminId(isAdmin.adminId)
           $('body').prepend(isAdmin ? adminHeader : indexHeader);
         }
         await showDiner(dinerId);

@@ -69,69 +69,6 @@
       }
     </style>
   </head>
-
-  <header data-bs-theme="dark">
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/admin.html">Admin Page</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-          </ul>
-
-          <button
-            style="margin: 3px"
-            class="btn btn-outline-light"
-            type="button"
-            onclick="window.location.replace('/html/create-diner.html')"
-          >
-            <!-- data-bs-toggle="modal" -->
-            <!-- data-bs-target="#createDiner" -->
-
-            상점 등록하기
-          </button>
-
-          <button
-            style="margin: 3px"
-            class="btn btn-outline-light"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#profileModal"
-          >
-            내 상점
-          </button>
-
-          <button
-            onclick="remove()"
-            class="btn btn-outline-light"
-            type="button"
-          >
-            Logout
-          </button>
-        </div>
-      </div>
-    </nav>
-  </header>
-
   <body>
     <form style="margin-top: 80px" id="diners-form">
       <label for="name">매장명</label>
@@ -170,6 +107,7 @@
     <script src="../js/constant.js"></script>
     <script src="../js/check-token.js"></script>
     <script src="../js/diner.js"></script>
+	<script src="../js/header.js"></script>
 	<script src="../js/admin.js"></script>
     <script>
       $(document).ready(async () => {
@@ -184,6 +122,7 @@
           location.href = '/admin.html';
 		  window.location.replace('/admin.html');
         }
+		$('body').prepend(adminHeader);
         makeBusinessHourForm();
         $('#diners-form').append('<input type="submit" value="등록">');
         $('#diners-form').on('submit', async function (e) {

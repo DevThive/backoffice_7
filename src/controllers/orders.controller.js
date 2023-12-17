@@ -5,8 +5,7 @@ export class OrdersController {
 
   // 식당별 주문 조회
   getOrdersByDiner = async (req, res) => {
-    console.log('ABC');
-    const { adminId } = res.locals.user;
+    const { adminId } = res.locals.admin;
     if (adminId !== res.locals.diner.adminId)
       return res.status(401).json({ message: '권한이 없습니다.' });
     const orders = await this.ordersService.getOrdersByDiner(
