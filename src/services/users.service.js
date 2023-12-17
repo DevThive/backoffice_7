@@ -189,7 +189,7 @@ export class UsersService {
       {
         adminId: adminInfo.adminId,
       },
-      process.env.SECRET_KEY,
+      process.env.SECRET_KEY_ADMIN,
       {
         expiresIn: '12h',
       },

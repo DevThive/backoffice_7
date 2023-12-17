@@ -3,6 +3,7 @@ import express from 'express';
 import UsersRouter from './users.router.js';
 import ReviewsRouter from './reviews.router.js';
 import DinersRouter from './diners.router.js';
+import UserOrdersRouter from './userorders.router.js';
 
 const router = express.Router();
 
@@ -13,5 +14,6 @@ const router = express.Router();
 router.use('/users', UsersRouter);
 router.use('/review', ReviewsRouter);
 router.use('/diners', DinersRouter);
+router.use('/userorders', UserOrdersRouter);
 
 export default router;
