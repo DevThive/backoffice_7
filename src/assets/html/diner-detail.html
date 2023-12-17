@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .info {
+      margin-bottom: 15px;
+    }
+    .info label {
+      font-weight: bold;
+    }
+    .business-hours {
+      margin-top: 20px;
+    }
+    .business-hours table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .business-hours th, .business-hours td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    .business-hours th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="name"></h1>
+    <div class="info">
+      <label>분류:</label> <span id="type"></span><br>
+      <label>주소:</label> <span id="address"></span><br>
+      <label>전화번호:</label> <span id="phoneNumber"></span><br>
+      <label>소개:</label> <span id="introduction"></span><br>
+	  <label>홈페이지:</label> <span id="homepage"></span>
+    </div>
+    <div class="business-hours">
+      <h2>영업 시간</h2>
+      <table id="businessHours">
+        <tr>
+          <th>요일</th>
+          <th>영업 시작</th>
+          <th>영업 종료</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../js/constant.js"></script>
+  <script src="../js/diner.js"></script>
+  <script>
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const dinerId = +urlParams.get("dinerId");
+	if(isNaN(dinerId)){
+		alert("해당 매장이 존재하지 않습니다.")
+		location.href = "index.html"
+	}
+	$(document).ready(async () => {
+		await showDiner(dinerId)
+	})
+  </script>
+</body>
+</html>

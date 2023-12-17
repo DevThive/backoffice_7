@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>배달의 원조</title>
+    <style>
+      /* CSS styles for the list */
+      #list-container {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 16px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      .diner-info {
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="list-container">
+      <h1>오늘의 선택은?</h1>
+      <form id="search-form">
+        <input
+          type="text"
+          id="keyword"
+          name="keyword"
+          placeholder="뭘 찾아볼까?"
+          required
+        />
+        <input type="submit" value="검색" />
+      </form>
+      <ul id="diners"></ul>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/constant.js"></script>
+    <script src="../js/diner.js"></script>
+    <script>
+      $(document).ready(async () => {
+        await getDiners();
+        $('#search-form').on('submit', async function (e) {
+          e.preventDefault();
+          await searchDiners();
+        });
+      });
+    </script>
+  </body>
+</html>
