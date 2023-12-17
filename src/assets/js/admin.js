@@ -1,7 +1,7 @@
 let adminId;
 
 async function getUserInfo() {
-  const json = await await fetch('/user/me');
+  const json = await fetch('/user/me');
 }
 
 function sign_in() {

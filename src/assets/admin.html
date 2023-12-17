@@ -87,7 +87,7 @@
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#profileModal"
-			onclick="toMyDiner()"
+            onclick="toMyDiner()"
           >
             내 상점
           </button>
@@ -328,11 +328,11 @@
     <script src="/api.js"></script>
     <script src="./js/constant.js"></script>
     <script src="./js/diner.js"></script>
-	<script src="./js/check-token.js"></script>
-	<script src="./header.js"></script>
-	<script src="./js/admin.js"></script>
+    <script src="./js/check-token.js"></script>
+    <script src="./js/header.js"></script>
+    <script src="./js/admin.js"></script>
     <script>
-	  if (localStorage.getItem('token') === null) {
+      if (localStorage.getItem('token') === null) {
         console.log(localStorage.getItem('token'));
         admingetSelf(function () {
           alert('로그인 해주세요');
@@ -342,13 +342,13 @@
       // 유저 정보 불러오기
       const emailVal = document.querySelector('#emailProfile');
       $(document).ready(async () => {
-	    const admin = await checkAdmin();
+        const admin = await checkAdmin();
         const adminId = admin.adminId;
         if (!adminId) {
           alert('권한이 없습니다.');
           location.href = '/';
         }
-		setAdminId(adminId)
+        setAdminId(adminId);
         await getDiners();
         $('#search-form').on('submit', async function (e) {
           e.preventDefault();
