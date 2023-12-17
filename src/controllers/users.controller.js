@@ -104,11 +104,11 @@ export class UsersController {
 
   usercheckToken = async (req, res, next) => {
     try {
-      const { email, nickname, adminId } = res.locals.user;
+      const { email, nickname, userId } = res.locals.user;
 
       return res.status(200).json({
         message: '토큰이 정상적입니다.',
-        data: { email, nickname, adminId },
+        data: { email, nickname, userId },
       });
     } catch (err) {
       next(err);

@@ -95,10 +95,19 @@
   <body>
     <!-- 검색창 부분 -->
     <div class="search">
-      <input type="text" placeholder="검색어 입력" />
-      <img
+      <form id="search-form">
+        <input id="keyword" type="text" placeholder="검색어 입력" />
+        <!-- <img
         src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
-      />
+      /> -->
+        <button
+          class="btn btn-sm btn-outline-black"
+          id="searchBtn"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
     </div>
 
     <!-- 이미지 확인 -->
@@ -125,7 +134,7 @@
     <!--상점 부분-->
     <div class="album py-5 bg-body-tertiary">
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-3">
+        <div id="diners" class="row row-cols-1 row-cols-sm-3 row-cols-md-3 g-3">
           <div class="col">
             <div class="card shadow-sm">
               <svg
@@ -227,10 +236,16 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="/api.js"></script>
-	<script src="/../js/main.js"></script>
-    <script>
+    <script src="/../js/main.js"></script>
+    <script src="./js/constant.js"></script>
+    <script src="./js/diner.js"></script>
+    <script src="./js/check-token.js"></script>
+    <script src="./js/header.js"></script>
+
+    <!-- <script>
       if (localStorage.getItem('token') === null) {
         console.log(localStorage.getItem('token'));
         getSelf(function () {
@@ -238,8 +253,23 @@
           window.location.replace('/');
         });
       }
-      // 유저 정보 불러오기
-      const emailVal = document.querySelector('#emailProfile');    
+    </script> -->
+    <script>
+      const emailVal = document.querySelector('#emailProfile');
+      $(document).ready(async () => {
+        const user = await checkUser();
+        const userId = user.userId;
+        if (!userId) {
+          alert('권한이 없습니다.');
+          location.href = '/';
+        }
+        // setAdminId(adminId);
+        await getDiners();
+        $('#search-form').on('submit', async function (e) {
+          e.preventDefault();
+          await searchDiners();
+        });
+      });
     </script>
   </body>
 </html>
