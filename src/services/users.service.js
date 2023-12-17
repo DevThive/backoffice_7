@@ -199,4 +199,8 @@ export class UsersService {
 
     return token;
   };
+
+  editUser = async (userId, nickname, address, phoneNumber) => {
+    const userInfo = await this.usersRepository.editUser(userId);
+  };
 }
