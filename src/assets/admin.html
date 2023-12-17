@@ -9,6 +9,7 @@
     />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/searchBar.css" />
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -43,7 +44,7 @@
   <header data-bs-theme="dark">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Admin Page</a>
+        <a class="navbar-brand" href="/admin.html">Admin Page</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -72,10 +73,22 @@
             style="margin: 3px"
             class="btn btn-outline-light"
             type="button"
+            onclick="window.location.replace('/html/create-diner.html')"
+          >
+            <!-- data-bs-toggle="modal" -->
+            <!-- data-bs-target="#createDiner" -->
+
+            상점 등록하기
+          </button>
+
+          <button
+            style="margin: 3px"
+            class="btn btn-outline-light"
+            type="button"
             data-bs-toggle="modal"
             data-bs-target="#profileModal"
           >
-            Profile
+            내 상점
           </button>
 
           <button
@@ -90,11 +103,132 @@
     </nav>
   </header>
 
-  <!-- 모달 부분 -->
   <body>
+    <!-- 검색창 부분 -->
+    <div class="search">
+      <form id="search-form">
+        <input id="keyword" type="text" placeholder="검색어 입력" />
+        <!-- <img
+        src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png"
+      /> -->
+        <button
+          class="btn btn-sm btn-outline-black"
+          id="searchBtn"
+          type="submit"
+        >
+          Search
+        </button>
+      </form>
+    </div>
+
+    <!-- 이미지 확인 -->
+    <section
+      style="background-color: azure; margin-top: 20px; margin-bottom: 20px"
+      class="py-5 text-center container"
+    >
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Album example</h1>
+          <p class="lead text-body-secondary">
+            Something short and leading about the collection below—its contents,
+            the creator, etc. Make it short and sweet, but not too short so
+            folks don’t simply skip over it entirely.
+          </p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!--상점 부분-->
+    <div class="album py-5 bg-body-tertiary">
+      <div class="container">
+        <div id="diners" class="row row-cols-1 row-cols-sm-3 row-cols-md-3 g-3">
+          <div class="col">
+            <div class="card shadow-sm">
+              <svg
+                class="bd-placeholder-img card-img-top"
+                width="100%"
+                height="225"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder: Thumbnail"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+              </svg>
+              <div class="card-body">
+                <h3>test Title</h3>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural
+                  lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                    >
+                      들어가기
+                    </button>
+                  </div>
+                  <small class="text-body-secondary">좋아요 1</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--seconde card-->
+          <div class="col">
+            <div class="card shadow-sm">
+              <svg
+                class="bd-placeholder-img card-img-top"
+                width="100%"
+                height="225"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Placeholder: Thumbnail"
+                preserveAspectRatio="xMidYMid slice"
+                focusable="false"
+              >
+                <title>Placeholder</title>
+                <rect width="100%" height="100%" fill="#55595c"></rect>
+                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+              </svg>
+              <div class="card-body">
+                <h3>test Title</h3>
+                <p class="card-text">
+                  This is a wider card with supporting text below as a natural
+                  lead-in to additional content. This content is a little bit
+                  longer.
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-outline-secondary"
+                    >
+                      들어가기
+                    </button>
+                  </div>
+                  <small class="text-body-secondary">좋아요 1</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 모달 부분 -->
     <div
       class="modal fade"
-      id="profileModal"
+      id="createDiner"
       data-bs-backdrop="static"
       tabindex="-1"
       aria-labelledby="staticBackdropLabel"
@@ -103,7 +237,9 @@
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Profile</h1>
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              상점 등록하기
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -115,33 +251,41 @@
             <!-- Nav tabs -->
 
             <div class="mb-3">
-              <label for="profileNickname" class="form-label">Nickname</label>
-              <input
-                type="email"
-                class="form-control"
-                id="profileNickname"
-                value="test@test.com"
-              />
+              <label for="profileNickname" class="form-label">매장명</label>
+              <input type="text" class="form-control" id="dinerName" />
             </div>
             <div class="mb-3">
-              <label for="profileNickname" class="form-label">Address</label>
+              <label for="dinerType" class="form-label">매장 분류</label>
+              <!--drop dwon 으로 변경-->
               <input
-                type="email"
+                type="text"
                 class="form-control"
-                id="profileNickname"
+                id="dinerType"
                 value="test Address"
               />
             </div>
             <div class="mb-3">
-              <label for="profileNickname" class="form-label"
-                >Phone Number</label
-              >
-              <input
-                type="email"
+              <label for="dinerAddress" class="form-label">매장 주소</label>
+              <input type="text" class="form-control" id="dinerAddress" />
+            </div>
+            <div class="mb-3">
+              <label for="dinerAddress" class="form-label">매장 전화번호</label>
+              <input type="tel" class="form-control" id="dinerPhone" />
+            </div>
+            <div class="mb-3">
+              <label for="dinerAddress" class="form-label">매장 소개</label>
+              <textarea
+                type="text"
                 class="form-control"
-                id="profileNickname"
-                value="010-0000-0000"
-              />
+                id="dinerIntroduce"
+                rows="4"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="dinerAddress" class="form-label"
+                >매장 홈페이지 주소</label
+              >
+              <input type="text" class="form-control" id="dinerPhone" />
             </div>
           </div>
           <div class="modal-footer">
@@ -178,13 +322,26 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="/api.js"></script>
+    <script src="./js/constant.js"></script>
+    <script src="./js/diner.js"></script>
+
+    <script>
+      $(document).ready(async () => {
+        await getDiners();
+        $('#search-form').on('submit', async function (e) {
+          e.preventDefault();
+          await searchDiners();
+        });
+      });
+    </script>
 
     <script>
       if (localStorage.getItem('token') === null) {
         console.log(localStorage.getItem('token'));
-        getSelf(function () {
+        admingetSelf(function () {
           alert('로그인 해주세요');
           window.location.replace('/');
         });

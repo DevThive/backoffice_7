@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>내 매장 정보 수정</title>
+  <style>
+    form {
+	  max-width: 400px;
+	  margin: 0 auto;
+	  font-family: Arial, sans-serif;
+	}
+
+	label {
+	  margin-top: 15px; /* Add some space between labels */
+	  font-weight: bold; /* Make labels bold for better readability */
+	}
+
+	input[type="text"],
+	input[type="tel"],
+	textarea {
+	  width: 100%;
+	  padding: 8px;
+	  margin-bottom: 10px;
+	  border-radius: 5px;
+	  border: 1px solid #ccc;
+	}
+
+	input[type="submit"], button {
+	  padding: 10px 15px;
+	  margin-right: 10px;
+	  background-color: #3498db;
+	  color: #fff;
+	  border: none;
+	  border-radius: 5px;
+	  cursor: pointer;
+	  transition: background-color 0.3s ease;
+	}
+
+	input[type="submit"]:hover {
+	  background-color: #2980b9;
+	}
+
+	/* Styling for day checkboxes and time inputs */
+	input[type="checkbox"] {
+	  margin-right: 5px;
+	  transform: translateY(1px);
+	}
+
+	input[type="time"] {
+	  width: 48%; /* Adjust width to fit both inputs in one line */
+	  margin-bottom: 10px;
+	}
+	
+	.businessHour {
+	  font-family: Arial, sans-serif;
+	  border: 1px solid #ccc;
+	  padding: 10px;
+	  margin-bottom: 10px;
+	}
+
+	input[type="time"],
+	input[type="checkbox"] {
+	  margin-bottom: 5px;
+	}
+  </style>
+</head>
+<body>
+  <form id="diners-form">
+
+    <label for="name">매장명</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="type">매장 분류</label>
+    <input type="text" id="type" name="type">
+
+    <label for="address">매장 주소</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="phoneNumber">매장 전화번호</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+    <label for="introduction">매장 소개</label>
+    <textarea id="introduction" name="introduction" rows="4" required></textarea>
+
+    <label for="homepage">매장 홈페이지 주소</label>
+    <input type="text" id="homepage" name="homepage">
+	
+	<label for="businessHour">영업 시간</label>
+    <!-- You might need additional input fields or adjustments based on your needs -->
+  </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="../js/constant.js"></script>
+  <script src="../js/check-token.js"></script>
+  <script src="../js/diner.js"></script>
+  <script>
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const dinerId = +urlParams.get("dinerId");
+	if(isNaN(dinerId)){
+		alert("해당 매장이 존재하지 않습니다.")
+		location.href = "index.html"
+	}
+	$(document).ready(async () => {
+		const admin = await checkAdmin()
+		const adminId = admin.adminId
+		if(!adminId){
+			alert("권한이 없습니다.")
+			location.href = "index.html"
+		}
+		makeBusinessHourForm()
+		$('#diners-form').append('<input type="submit" value="수정">')
+		await getDiner(dinerId)
+		$("#diners-form").on("submit", async function(e){
+			e.preventDefault()
+			await submitDiner(dinerId)
+		})
+		const deleteBtn = $('<button>삭제</button>')
+		deleteBtn.click(async function(e){
+			e.preventDefault()
+			const deleteVal = confirm("매장을 삭제하겠습니까?")
+			if (deleteVal)
+				await deleteDiner(dinerId)
+		})
+		$('#diners-form').append(deleteBtn)
+	})
+  </script>
+</body>
+</html>
