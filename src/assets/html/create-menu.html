@@ -101,6 +101,12 @@
 
     <script>
       async function createProduct() {
+	  const admin = await checkAdmin();
+        const adminId = admin.adminId;
+        if (!adminId) {
+          alert('권한이 없습니다.');
+          location.href = '/';
+        }
         const productName = document.getElementById('productName').value;
         const productPrice = document.getElementById('productPrice').value;
         const productDescription =
@@ -116,7 +122,8 @@
           });
 
           alert('메뉴가 성공적으로 생성되었습니다.', response.data);
-          window.location.replace('diner-detail.html');
+		  setAdminId(adminId)
+          toMyDiner()
         } catch (error) {
           console.error('메뉴 생성 중 오류 발생:', error.message);
         }
