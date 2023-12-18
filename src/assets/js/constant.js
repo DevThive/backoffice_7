@@ -1,2 +1,2 @@
-const Port = 8192;
+const Port = 5500;
 const server = `http://localhost:${Port}`;
