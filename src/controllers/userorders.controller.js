@@ -13,11 +13,11 @@ export class OrdersController {
         amount,
       );
 
+      console.log(productId, amount);
       if (!productId || !amount) {
         res.status(400).json({ message: '메뉴와 수량을 모두 정해주세요.' });
         return;
       }
-
       await this.ordersService.createOrder(
         user,
         productId,
