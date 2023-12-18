@@ -1,10 +1,16 @@
+let dinerId;
+
 document.addEventListener('DOMContentLoaded', async () => {
   const menuList = document.getElementById('menuList');
   const productIdSelect = document.getElementById('productId');
+  
+  const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      dinerId = +urlParams.get('dinerId');
 
   // 서버에서 메뉴 목록 가져오기
   const menuResponse = await fetch(
-    `http://localhost:3000/api/userorders/diner/${dinerId}`,
+    server+`/api/userorders/diner/${dinerId}`,
   );
   const menuData = await menuResponse.json();
 
@@ -36,7 +42,7 @@ async function placeOrder() {
   try {
     // 주문 생성 요청
     const response = await fetch(
-      `http://localhost:3000/api/userorders/diner/${dinerId}`,
+      server+`/api/userorders/diner/${dinerId}`,
       {
         // DINER_ID를 실제 식당 ID로 대체
         method: 'POST',
