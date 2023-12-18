@@ -290,7 +290,7 @@ async function adminHasDiner(adminId) {
 async function showDinerMenu(dinerId) {
   try {
     const res = await axios.get(server + `/api/products/diner/${dinerId}`);
-    const products = res.data.diner;
+    const products = res.data.product;
 	console.log(res.data)
 
     // 메뉴 목록을 표시하는 부분
