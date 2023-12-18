@@ -74,13 +74,13 @@ export class ProductsController {
         return;
       }
 
-      const diner = await this.productsService.getProductsByDiner(dinerId);
-      if (!diner || diner.length === 0) {
+      const product = await this.productsService.getProductsByDiner(dinerId);
+      if (!product || product.length === 0) {
         // 식당 정보가 없을 경우
         res.status(404).json({ message: '해당 식당의 메뉴가 없습니다.' });
         return;
       }
-      res.json({ diner });
+      res.json({ product });
     } catch (e) {
       next(e);
     }

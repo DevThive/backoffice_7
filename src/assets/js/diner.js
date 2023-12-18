@@ -108,7 +108,7 @@ async function checkDiner(dinerId, adminId) {
       alert('권한이 없습니다.');
       location.href = '../admin.html';
     }
-	return 1
+    return 1;
   } catch (e) {
     console.log(e);
     alert(
@@ -338,7 +338,7 @@ async function showDinerMenu(dinerId) {
 
 function viewProductDetail(productId) {
   // 메뉴 상세 페이지로 이동하는 코드 추가
-  location.href = `/html/product-detail.html?productId=${productId}`;
+  location.href = `/html/menu-detail.html?productId=${productId}`;
 }
 
 // ...
