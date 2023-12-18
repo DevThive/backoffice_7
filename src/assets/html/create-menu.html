@@ -115,7 +115,7 @@
             imageUrl: productImage,
           });
 
-          console.log('메뉴가 성공적으로 생성되었습니다.', response.data);
+          alert('메뉴가 성공적으로 생성되었습니다.', response.data);
           window.location.replace('diner-detail.html');
         } catch (error) {
           console.error('메뉴 생성 중 오류 발생:', error.message);
