@@ -57,6 +57,7 @@
       <button type="button" onclick="goBack()">뒤로 가기</button>
     </div>
 
+    <script src="../js/constant.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -67,7 +68,7 @@
 
         try {
           const response = await axios.get(
-            `http://localhost:3000/api/products/${productId}`,
+            server + `api/products/${productId}`,
           );
           const product = response.data.product;
 
