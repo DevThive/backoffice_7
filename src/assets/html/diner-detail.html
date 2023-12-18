@@ -77,9 +77,6 @@
         <h2>메뉴 목록</h2>
         <div id="menuList"></div>
       </div>
-      <div class="text-center mt-4">
-        <a href="create-menu.html" class="btn btn-primary">메뉴 등록</a>
-      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -108,7 +105,13 @@
         if (isUser) $('body').prepend(userHeader);
         else {
           const isAdmin = await checkAdmin();
-          if (isAdmin) setAdminId(isAdmin.adminId);
+          if (isAdmin){ 
+			setAdminId(isAdmin.adminId);
+			if(await checkDiner(dinerId,isAdmin.adminId))
+				$('.container').append($(`<div class="text-center mt-4">
+        <a href="create-menu.html" class="btn btn-primary">메뉴 등록</a>
+      </div>`))
+		  }
           $('body').prepend(isAdmin ? adminHeader : indexHeader);
         }
         await showDiner(dinerId);

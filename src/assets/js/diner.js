@@ -100,12 +100,13 @@ async function submitDiner(dinerId = null) {
   }
 }
 
-async function checkDiner(dinerId, adminId) {
+async function checkDiner(dinerId, adminId, redirect = 0) {
   try {
     const res = await axios.get(server + `/api/diners/${dinerId}`);
     const diner = res.data.diner;
     if (adminId !== diner.adminId) {
-      alert('권한이 없습니다.');
+	  if(!redirect) return 0
+	  alert('권한이 없습니다ㅁㅁ.');
       location.href = '../admin.html';
     }
     return 1;
