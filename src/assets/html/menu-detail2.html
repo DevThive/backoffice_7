@@ -69,7 +69,7 @@
           const response = await axios.get(
             `http://localhost:3000/api/products/${productId}`,
           );
-          const product = response.data;
+          const product = response.data.product;
 
           // 가져온 메뉴 정보를 페이지에 적용
           document.getElementById('productImage').src = product.imageUrl;
